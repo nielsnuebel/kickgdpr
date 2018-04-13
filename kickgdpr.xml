@@ -2,17 +2,19 @@
 <extension version="3.4" type="plugin" group="sytem" method="upgrade">
     <name>plg_system_kickgdpr</name>
     <author>Niels Nübel</author>
-    <creationDate>12 April 2018</creationDate>
-    <copyright>Copyright (c) 2009 - 2018 Niels Nübel</copyright>
+    <creationDate>April 2018</creationDate>
+    <copyright>(c) 2009 - 2018 Kicktemp. All rights reserved.</copyright>
     <license>GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html</license>
-    <authorEmail>info@niels-nuebel.de</authorEmail>
-    <authorUrl>www.niels-nuebel.de</authorUrl>
+    <authorEmail>info@kicktemp.com</authorEmail>
+    <authorUrl>www.kicktemp.com</authorUrl>
     <version>1.0.0</version>
     <description>PLG_SYSTEM_KICKGDPR_XML_DESCRIPTION</description>
+
     <files>
         <folder>language</folder>
         <file plugin="kickgdpr">kickgdpr.php</file>
     </files>
+
     <config>
         <fields name="params">
             <fieldset name="analytics" label="PLG_SYSTEM_KICKGDPR_TAB_ANALYTICS">
@@ -66,7 +68,7 @@
                 <field  name="ga_forceSSL"
                         type="radio"
                         class="btn-group"
-                        default="0"
+                        default="1"
                         label="PLG_SYSTEM_KICKGDPR_PARAMETER_GA_FORCESSL_LABEL"
                         description="PLG_SYSTEM_KICKGDPR_PARAMETER_GA_FORCESSL_DESC"
                 >

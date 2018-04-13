@@ -1,17 +1,25 @@
 <?php
 /**
- * @package    KickGDPR
- * @copyright  2018 Niels Nübel
- * @license    This software is licensed under the MIT license: http://opensource.org/licenses/MIT
- * @link       https://www.niels-nuebel.de
+ * @package     Joomla.Plugin
+ * @subpackage  System.kickgdpr
+ * @author      Niels Nübel <niels@niels-nuebel.de>
+ * @copyright   2018 Niels Nübel
+ * @license     GNU/GPLv3 <http://www.gnu.org/licenses/gpl-3.0.de.html>
+ * @link        https://kicktemp.com
  */
 
+// No direct access
 defined('_JEXEC') or die;
 
 /**
- * Plugin class to modify an Article object
+ * Class plgSystemKickGDPR
  *
- * @since  3.1
+ * Enables Google Analytics functionality and adds an opt-out
+ * link to disable it for GDPR law, with setting an cookie.
+ *
+ * @package     Joomla.Plugin
+ * @subpackage  System.kickgdpr
+ * @since       3.8
  */
 class PlgSystemKickGdpr extends JPlugin
 {
@@ -39,7 +47,15 @@ class PlgSystemKickGdpr extends JPlugin
 	 */
 	protected $autoloadLanguage = true;
 
-	public function __construct(& $subject, $config)
+	/**
+	 * Constructor.
+	 *
+	 * @param   object  &$subject  The object to observe -- event dispatcher.
+	 * @param   object  $config    An optional associative array of configuration settings.
+	 *
+	 * @since   1.6
+	 */
+	public function __construct(&$subject, $config)
 	{
 		parent::__construct($subject, $config);
 
@@ -54,15 +70,23 @@ class PlgSystemKickGdpr extends JPlugin
 		}
 	}
 
-	function onBeforeCompileHead() {
+	/**
+	 * onBeforeCompileHead
+	 *
+	 * @return  void
+	 *
+	 * @since   1.6
+	 */
+	public function onBeforeCompileHead()
+	{
 		if (!$this->app->isSite())
 		{
-			return true;
+			return;
 		}
 
 		if (!$ga_code = $this->params->get('ga_code', false))
 		{
-			return true;
+			return;
 		}
 
 		// Add Google Analytics to Head
@@ -102,7 +126,7 @@ class PlgSystemKickGdpr extends JPlugin
 		$js[] = "";
 		$js[] = "__kickgaTracker('create', '" . $ga_code . "', 'auto')";
 
-		if ($this->params->get('ga_forceSSL', false))
+		if ($this->params->get('ga_forceSSL', true))
 		{
 			$js[] = "__kickgaTracker('set', 'forceSSL', true);";
 		}
@@ -128,46 +152,43 @@ class PlgSystemKickGdpr extends JPlugin
 
 		$js[] = "<!-- End Google Analytics -->";
 
-
-		$headjs = implode("\n",$js);
+		$headjs = implode("\n", $js);
 
 		$this->doc->addScriptDeclaration($headjs);
 	}
 
 	/**
-	 * Plugin that loads Ads within content
+	 * onContentPrepare
 	 *
 	 * @param   string   $context   The context of the content being passed to the plugin.
 	 * @param   object   &$article  The article object.  Note $article->text is also available
 	 * @param   mixed    &$params   The article params
 	 * @param   integer  $page      The 'page' number
 	 *
-	 * @return  mixed   true if there is an error. Void otherwise.
-	 *
-	 * @since   1.6
+	 * @return  void
 	 */
 	public function onContentPrepare($context, &$article, &$params, $page = 0)
 	{
 		if (!$this->app->isSite())
 		{
-			return true;
+			return;
 		}
 
 		if ($context != 'com_content.article')
 		{
-			return true;
+			return;
 		}
 
 		// Simple performance check to determine whether bot should process further
 		if (strpos($article->text, '{kickgdpr_ga_optout}') === false && strpos($article->text, '{/kickgdpr_ga_optout}') === false)
 		{
-			return true;
+			return;
 		}
 
-		$ga_optout_openlink = '<a href="#" onClick="__kickgaTrackerOptout(); return false;" >';
-		$ga_optout_closelink = '</a>';
+		$gaOptoutOpenlink = '<a href="#" onClick="__kickgaTrackerOptout(); return false;" >';
+		$gaOptoutCloselink = '</a>';
 
-		$article->text = str_replace('{kickgdpr_ga_optout}', $ga_optout_openlink, $article->text);
-		$article->text = str_replace('{/kickgdpr_ga_optout}', $ga_optout_closelink, $article->text);
+		$article->text = str_replace('{kickgdpr_ga_optout}', $gaOptoutOpenlink, $article->text);
+		$article->text = str_replace('{/kickgdpr_ga_optout}', $gaOptoutCloselink, $article->text);
 	}
 }
