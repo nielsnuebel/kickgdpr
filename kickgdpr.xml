@@ -7,7 +7,7 @@
     <license>GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html</license>
     <authorEmail>info@kicktemp.com</authorEmail>
     <authorUrl>www.kicktemp.com</authorUrl>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <description>PLG_SYSTEM_KICKGDPR_XML_DESCRIPTION</description>
 
     <files>
@@ -90,6 +90,6 @@
         </fields>
     </config>
     <updateservers>
-        <server type="extension" priority="1" name="PLG_CONTENT_KICKGDPR">https://raw.githubusercontent.com/nielsnuebel/plg_system_kickgdpr/master/update.xml</server>
+        <server type="extension" priority="1" name="PLG_CONTENT_KICKGDPR">https://raw.githubusercontent.com/nielsnuebel/kickgdpr/master/update.xml</server>
     </updateservers>
 </extension>
