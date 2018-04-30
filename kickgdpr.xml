@@ -14,9 +14,165 @@
         <folder>language</folder>
         <file plugin="kickgdpr">kickgdpr.php</file>
     </files>
+    <media folder="media" destination="plg_system_kickgdpr">
+        <folder>js</folder>
+    </media>
 
     <config>
         <fields name="params">
+            <fieldset name="basic">
+                <field name="disable_cookie"
+                       type="radio"
+                       class="btn-group"
+                       default="0"
+                       label="PLG_SYSTEM_KICKGDPR_PARAMETER_DISABLE_COOKIE_LABEL"
+                       description="PLG_SYSTEM_KICKGDPR_PARAMETER_DISABLE_COOKIE_DESC"
+                >
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field name="disable_ga"
+                       type="radio"
+                       class="btn-group"
+                       default="0"
+                       label="PLG_SYSTEM_KICKGDPR_PARAMETER_DISABLE_GA_LABEL"
+                       description="PLG_SYSTEM_KICKGDPR_PARAMETER_DISABLE_GA_DESC"
+                >
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+            </fieldset>
+            <fieldset name="cookie" label="PLG_SYSTEM_KICKGDPR_TAB_COOKIE">
+                <field
+                        name="cookie_spacer"
+                        type="spacer"
+                        label="PLG_SYSTEM_KICKGDPR_TAB_COOKIE_DESC"
+                />
+                <field name="cloudflare"
+                       type="radio"
+                       class="btn-group"
+                       default="0"
+                       label="PLG_SYSTEM_KICKGDPR_PARAMETER_CLOUDFLARE_LABEL"
+                       description="PLG_SYSTEM_KICKGDPR_PARAMETER_CLOUDFLARE_DESC"
+                >
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field name="cookie_position" type="list" default="" label="PLG_SYSTEM_KICKGDPR_COOKIE_POSITION_LABEL"
+                       description="PLG_SYSTEM_KICKGDPR_COOKIE_POSITION_DESC">
+                    <option value="">Banner bottom</option>
+                    <option value="top">Banner top</option>
+                    <option value="top static">Banner top (pushdown)</option>
+                    <option value="bottom-left">Floating left</option>
+                    <option value="bottom-right">Floating right</option>
+                </field>
+                <field name="cookie_layout"
+                       type="radio"
+                       class="btn-group"
+                       default="block"
+                       label="PLG_SYSTEM_KICKGDPR_COOKIE_LAYOUT_LABEL"
+                       description="PLG_SYSTEM_KICKGDPR_COOKIE_LAYOUT_DESC">
+                    <option value="block">Block</option>
+                    <option value="classic">Classic</option>
+                    <option value="edgeless">Edgeless</option>
+                    <option value="wire">Wire</option>
+                </field>
+                <field
+                        name="cookie_palette"
+                        type="spacer"
+                        label="PLG_SYSTEM_KICKGDPR_SPACER_PALETTE"
+                />
+                <field
+                        name="banner_color"
+                        type="color"
+                        label="PLG_SYSTEM_KICKGDPR_BANNER_COLOR_LABEL"
+                        description="PLG_SYSTEM_KICKGDPR_BANNER_COLOR_DESC"
+                        default="#000000"
+                />
+                <field
+                        name="banner_text"
+                        type="color"
+                        label="PLG_SYSTEM_KICKGDPR_BANNER_TEXT_COLOR_LABEL"
+                        description="PLG_SYSTEM_KICKGDPR_BANNER_TEXT_COLOR_DESC"
+                        default="#FFFFFF"
+                />
+                <field
+                        name="button_color"
+                        type="color"
+                        label="PLG_SYSTEM_KICKGDPR_BUTTON_COLOR_LABEL"
+                        description="PLG_SYSTEM_KICKGDPR_BUTTON_COLOR_DESC"
+                        default="#F1D600"
+                />
+                <field
+                        name="button_text"
+                        type="color"
+                        label="PLG_SYSTEM_KICKGDPR_BUTTON_TEXT_COLOR_LABEL"
+                        description="PLG_SYSTEM_KICKGDPR_BUTTON_TEXT_COLOR_DESC"
+                        default="#000000"
+                />
+                <field
+                        name="cookie_learn_more"
+                        type="spacer"
+                        label="PLG_SYSTEM_KICKGDPR_SPACER_LEARNMORE"
+                />
+                <field name="link"
+                       type="menuitem"
+                       default=""
+                       label="PLG_SYSTEM_KICKGDPR_LEARNMORE_LINK_LABEL"
+                       description="PLG_SYSTEM_KICKGDPR_LEARNMORE_LINK_DESC"
+                >
+                    <option value="">JDEFAULT</option>
+                </field>
+                <field name="link_url"
+                       type="text"
+                       default=""
+                       label="PLG_SYSTEM_KICKGDPR_LEARNMORE_LINK_URL_LABEL"
+                       description="PLG_SYSTEM_KICKGDPR_LEARNMORE_LINK_URL_DESC"
+                />
+                 <field
+                        name="compliance_spacer"
+                        type="spacer"
+                        label="PLG_SYSTEM_KICKGDPR_COMPLIANCE_SPACER_TEXT"
+                />
+                 <field name="compliance_type"
+                       type="radio"
+                       class="btn-group"
+                       default=""
+                       label="PLG_SYSTEM_KICKGDPR_COMPLIANCE_TYPE_LABEL"
+                       description="PLG_SYSTEM_KICKGDPR_COMPLIANCE_TYPE_DESC">
+                    <option value="">JDEFAULT</option>
+                    <option value="opt-out">Let users opt out of cookies (Advanced)</option>
+                    <option value="opt-in">Ask users to opt into cookies (Advanced)</option>
+                </field>
+                <field
+                        name="advanced_alert"
+                        type="spacer"
+                        label="PLG_SYSTEM_KICKGDPR_SPACER_ADVANCED_ALERT"
+                        showon="compliance_type:opt-out[OR]compliance_type:opt-in"
+                />
+                <field
+                        name="cookie_custom_text"
+                        type="spacer"
+                        label="PLG_SYSTEM_KICKGDPR_SPACER_CUSTOM_TEXT"
+                />
+                <field name="message" type="text" class="input-xxlarge"
+                       default="This website uses cookies to ensure you get the best experience on our website."
+                       label="PLG_SYSTEM_KICKGDPR_MESSAGE_LABEL" description="PLG_SYSTEM_KICKGDPR_MESSAGE_DESC"/>
+                <field name="dismiss" type="text" class="input-xxlarge" default="Got it!"
+                       label="PLG_SYSTEM_KICKGDPR_DISMISS_LABEL" description="PLG_SYSTEM_KICKGDPR_DISMISS_DESC"/>
+                <field name="learnMore" type="text" class="input-xxlarge" default="Learn more"
+                       label="PLG_SYSTEM_KICKGDPR_LEARNMORE_LABEL" description="PLG_SYSTEM_KICKGDPR_LEARNMORE_DESC"/>
+                <field name="denybutton" type="text" class="input-xxlarge" default="Refuse cookies"
+                        label="PLG_SYSTEM_KICKGDPR_DENYBUTTON_LABEL"
+                        description="PLG_SYSTEM_KICKGDPR_DENYBUTTON_DESC"
+                        showon="compliance_type:opt-out"
+                />
+                <field name="acceptbutton" type="text" class="input-xxlarge" default="Allow cookies"
+                        label="PLG_SYSTEM_KICKGDPR_ACCEPTBUTTON_LABEL"
+                        description="PLG_SYSTEM_KICKGDPR_ACCEPTBUTTON_DESC"
+                        showon="compliance_type:opt-in"
+                />
+            </fieldset>
             <fieldset name="analytics" label="PLG_SYSTEM_KICKGDPR_TAB_ANALYTICS">
                 <field
                         name="ga_spacer"
@@ -24,64 +180,64 @@
                         label="PLG_SYSTEM_KICKGDPR_TAB_ANALYTICS_DESC"
                 />
                 <!-- GOOGLE ANALYTICS CODE-->
-                <field  name="ga_code"
-                        class=""
-                        type="text"
-                        default=""
-                        label="PLG_SYSTEM_KICKGDPR_PARAMETER_GOOGLEANALYTICS_CODE_LABEL"
-                        description="PLG_SYSTEM_KICKGDPR_PARAMETER_GOOGLEANALYTICS_CODE_DESC"
+                <field name="ga_code"
+                       class=""
+                       type="text"
+                       default=""
+                       label="PLG_SYSTEM_KICKGDPR_PARAMETER_GOOGLEANALYTICS_CODE_LABEL"
+                       description="PLG_SYSTEM_KICKGDPR_PARAMETER_GOOGLEANALYTICS_CODE_DESC"
                 />
 
-                <field  name="ga_displayfeatures"
-                        type="radio"
-                        class="btn-group"
-                        default="0"
-                        label="PLG_SYSTEM_KICKGDPR_PARAMETER_GOOGLEANALYTICS_LABEL"
-                        description="PLG_SYSTEM_KICKGDPR_PARAMETER_GOOGLEANALYTICS_DESC"
+                <field name="ga_displayfeatures"
+                       type="radio"
+                       class="btn-group"
+                       default="0"
+                       label="PLG_SYSTEM_KICKGDPR_PARAMETER_GOOGLEANALYTICS_LABEL"
+                       description="PLG_SYSTEM_KICKGDPR_PARAMETER_GOOGLEANALYTICS_DESC"
                 >
                     <option value="0">JNO</option>
                     <option value="1">JYES</option>
                 </field>
 
-                <field  name="ga_displayfeatures"
-                        type="radio"
-                        class="btn-group"
-                        default="0"
-                        label="PLG_SYSTEM_KICKGDPR_PARAMETER_GA_DISPLAYFEATURES_LABEL"
-                        description="PLG_SYSTEM_KICKGDPR_PARAMETER_GA_DISPLAYFEATURES_DESC"
+                <field name="ga_displayfeatures"
+                       type="radio"
+                       class="btn-group"
+                       default="0"
+                       label="PLG_SYSTEM_KICKGDPR_PARAMETER_GA_DISPLAYFEATURES_LABEL"
+                       description="PLG_SYSTEM_KICKGDPR_PARAMETER_GA_DISPLAYFEATURES_DESC"
                 >
                     <option value="0">JNO</option>
                     <option value="1">JYES</option>
                 </field>
 
-                <field  name="ga_anonymizeIp"
-                        type="radio"
-                        class="btn-group"
-                        default="1"
-                        label="PLG_SYSTEM_KICKGDPR_PARAMETER_GA_ANONYMIZEIP_LABEL"
-                        description="PLG_SYSTEM_KICKGDPR_PARAMETER_GA_ANONYMIZEIP_DESC"
+                <field name="ga_anonymizeIp"
+                       type="radio"
+                       class="btn-group"
+                       default="1"
+                       label="PLG_SYSTEM_KICKGDPR_PARAMETER_GA_ANONYMIZEIP_LABEL"
+                       description="PLG_SYSTEM_KICKGDPR_PARAMETER_GA_ANONYMIZEIP_DESC"
                 >
                     <option value="0">JNO</option>
                     <option value="1">JYES</option>
                 </field>
 
-                <field  name="ga_forceSSL"
-                        type="radio"
-                        class="btn-group"
-                        default="1"
-                        label="PLG_SYSTEM_KICKGDPR_PARAMETER_GA_FORCESSL_LABEL"
-                        description="PLG_SYSTEM_KICKGDPR_PARAMETER_GA_FORCESSL_DESC"
+                <field name="ga_forceSSL"
+                       type="radio"
+                       class="btn-group"
+                       default="1"
+                       label="PLG_SYSTEM_KICKGDPR_PARAMETER_GA_FORCESSL_LABEL"
+                       description="PLG_SYSTEM_KICKGDPR_PARAMETER_GA_FORCESSL_DESC"
                 >
                     <option value="0">JNO</option>
                     <option value="1">JYES</option>
                 </field>
 
-                <field  name="ga_linkid"
-                        type="radio"
-                        class="btn-group"
-                        default="0"
-                        label="PLG_SYSTEM_KICKGDPR_PARAMETER_GA_LINKID_LABEL"
-                        description="PLG_SYSTEM_KICKGDPR_PARAMETER_GA_LINKID_DESC"
+                <field name="ga_linkid"
+                       type="radio"
+                       class="btn-group"
+                       default="0"
+                       label="PLG_SYSTEM_KICKGDPR_PARAMETER_GA_LINKID_LABEL"
+                       description="PLG_SYSTEM_KICKGDPR_PARAMETER_GA_LINKID_DESC"
                 >
                     <option value="0">JNO</option>
                     <option value="1">JYES</option>
@@ -90,6 +246,8 @@
         </fields>
     </config>
     <updateservers>
-        <server type="extension" priority="1" name="PLG_CONTENT_KICKGDPR">https://raw.githubusercontent.com/nielsnuebel/kickgdpr/master/update.xml</server>
+        <server type="extension" priority="1" name="PLG_CONTENT_KICKGDPR">
+            https://raw.githubusercontent.com/nielsnuebel/kickgdpr/master/update.xml
+        </server>
     </updateservers>
 </extension>
