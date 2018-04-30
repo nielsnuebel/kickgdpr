@@ -192,6 +192,12 @@ class PlgSystemKickGdpr extends JPlugin
 			$href = (isset($href) && '' != $href) ? JRoute::_("index.php?Itemid={$href}") : false;
 			$href = (isset($link_url) && '' != $link_url && !$href) ? $link_url : $href;
 
+			if ($theme == 'wire')
+			{
+				$border = $button_color;
+				$button_color = 'transparent';
+			}
+
 			$js = array();
 			$js[] = '<!-- Start Cookie Alert -->';
 			$js[] = 'window.addEventListener("load", function(){';
@@ -203,7 +209,13 @@ class PlgSystemKickGdpr extends JPlugin
 			$js[] = '    },';
 			$js[] = '    "button": {';
 			$js[] = '      "background": "' . $button_color . '",';
-			$js[] = '      "text": "' . $button_text . '"';
+			$js[] = '      "text": "' . $button_text . '",';
+
+			if (isset($border))
+			{
+				$js[] = '      "border": "' . $border . '"';
+			}
+
 			$js[] = '    }';
 			$js[] = '  },';
 			$js[] = '  "theme": "' . $theme . '",';
