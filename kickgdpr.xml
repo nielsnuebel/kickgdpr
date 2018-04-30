@@ -7,7 +7,7 @@
     <license>GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html</license>
     <authorEmail>info@kicktemp.com</authorEmail>
     <authorUrl>www.kicktemp.com</authorUrl>
-    <version>1.0.2</version>
+    <version>1.1.1</version>
     <description>PLG_SYSTEM_KICKGDPR_XML_DESCRIPTION</description>
 
     <files>
@@ -16,6 +16,7 @@
     </files>
     <media folder="media" destination="plg_system_kickgdpr">
         <folder>js</folder>
+        <folder>css</folder>
     </media>
 
     <config>
