@@ -2,7 +2,7 @@
 <extension version="3.4" type="plugin" group="system" method="upgrade">
     <name>plg_system_kickgdpr</name>
     <author>Niels Nübel</author>
-    <creationDate>April 2018</creationDate>
+    <creationDate>May 2018</creationDate>
     <copyright>(c) 2009 - 2018 Kicktemp. All rights reserved.</copyright>
     <license>GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html</license>
     <authorEmail>info@kicktemp.com</authorEmail>
@@ -61,11 +61,11 @@
                 </field>
                 <field name="cookie_position" type="list" default="" label="PLG_SYSTEM_KICKGDPR_COOKIE_POSITION_LABEL"
                        description="PLG_SYSTEM_KICKGDPR_COOKIE_POSITION_DESC">
-                    <option value="">Banner bottom</option>
-                    <option value="top">Banner top</option>
-                    <option value="top static">Banner top (pushdown)</option>
-                    <option value="bottom-left">Floating left</option>
-                    <option value="bottom-right">Floating right</option>
+                    <option value="">PLG_SYSTEM_KICKGDPR_OPTION_POSITION_BANNER_BOTTOM</option>
+                    <option value="top">PLG_SYSTEM_KICKGDPR_OPTION_POSITION_BANNER_TOP</option>
+                    <option value="top static">PLG_SYSTEM_KICKGDPR_OPTION_POSITION_BANNER_TOP_STATIC</option>
+                    <option value="bottom-left">PLG_SYSTEM_KICKGDPR_OPTION_POSITION_BANNER_FLOATING_LEFT</option>
+                    <option value="bottom-right">PLG_SYSTEM_KICKGDPR_OPTION_POSITION_BANNER_FLOATING_RIGHT</option>
                 </field>
                 <field name="cookie_layout"
                        type="radio"
@@ -142,8 +142,8 @@
                        label="PLG_SYSTEM_KICKGDPR_COMPLIANCE_TYPE_LABEL"
                        description="PLG_SYSTEM_KICKGDPR_COMPLIANCE_TYPE_DESC">
                     <option value="">JDEFAULT</option>
-                    <option value="opt-out">Let users opt out of cookies (Advanced)</option>
-                    <option value="opt-in">Ask users to opt into cookies (Advanced)</option>
+                    <option value="opt-out">PLG_SYSTEM_KICKGDPR_OPTION_OPTOUT</option>
+                    <option value="opt-in">PLG_SYSTEM_KICKGDPR_OPTION_OPTIN</option>
                 </field>
                 <field
                         name="advanced_alert"
@@ -157,21 +157,23 @@
                         label="PLG_SYSTEM_KICKGDPR_SPACER_CUSTOM_TEXT"
                 />
                 <field name="message" type="text" class="input-xxlarge"
-                       default="This website uses cookies to ensure you get the best experience on our website."
-                       label="PLG_SYSTEM_KICKGDPR_MESSAGE_LABEL" description="PLG_SYSTEM_KICKGDPR_MESSAGE_DESC"/>
-                <field name="dismiss" type="text" class="input-xxlarge" default="Got it!"
-                       label="PLG_SYSTEM_KICKGDPR_DISMISS_LABEL" description="PLG_SYSTEM_KICKGDPR_DISMISS_DESC"/>
-                <field name="learnMore" type="text" class="input-xxlarge" default="Learn more"
-                       label="PLG_SYSTEM_KICKGDPR_LEARNMORE_LABEL" description="PLG_SYSTEM_KICKGDPR_LEARNMORE_DESC"/>
-                <field name="denybutton" type="text" class="input-xxlarge" default="Refuse cookies"
+                       default="Um unsere Webseite für Sie optimal zu gestalten und fortlaufend verbessern zu können, verwenden wir Cookies. Durch die weitere Nutzung der Webseite stimmen Sie der Verwendung von Cookies zu. Weitere Informationen zu Cookies erhalten Sie in unserer"
+                       label="PLG_SYSTEM_KICKGDPR_MESSAGE_LABEL" description="PLG_SYSTEM_KICKGDPR_MESSAGE_DESC" translate_default="true" />
+                <field name="dismiss" type="text" class="input-xxlarge" default="Verstanden"
+                       label="PLG_SYSTEM_KICKGDPR_DISMISS_LABEL" description="PLG_SYSTEM_KICKGDPR_DISMISS_DESC" translate_default="true" />
+                <field name="learnMore" type="text" class="input-xxlarge" default="Datenschutzerklärung"
+                       label="PLG_SYSTEM_KICKGDPR_LEARNMORE_LABEL" description="PLG_SYSTEM_KICKGDPR_LEARNMORE_DESC" translate_default="true" />
+                <field name="denybutton" type="text" class="input-xxlarge" default="Cookies ablehnen"
                         label="PLG_SYSTEM_KICKGDPR_DENYBUTTON_LABEL"
                         description="PLG_SYSTEM_KICKGDPR_DENYBUTTON_DESC"
                         showon="compliance_type:opt-out"
+                        translate_default="true"
                 />
-                <field name="acceptbutton" type="text" class="input-xxlarge" default="Allow cookies"
+                <field name="acceptbutton" type="text" class="input-xxlarge" default="Cookies zulassen"
                         label="PLG_SYSTEM_KICKGDPR_ACCEPTBUTTON_LABEL"
                         description="PLG_SYSTEM_KICKGDPR_ACCEPTBUTTON_DESC"
                         showon="compliance_type:opt-in"
+                        translate_default="true"
                 />
             </fieldset>
             <fieldset name="analytics" label="PLG_SYSTEM_KICKGDPR_TAB_ANALYTICS">
