@@ -181,11 +181,11 @@ class PlgSystemKickGdpr extends JPlugin
 			$position = explode(' ', $this->params->get('cookie_position', 'bottom'));
 			$type = $this->params->get('compliance_type', '');
 			$theme = $this->params->get('cookie_layout', 'block');
-			$message = $this->params->get('message', 'This website uses cookies to ensure you get the best experience on our website');
-			$dismiss = $this->params->get('dismiss', 'Got it!');
-			$allow = $this->params->get('acceptbutton', 'Allow cookies');
-			$deny = $this->params->get('denybutton', 'Refuse cookies');
-			$link = $this->params->get('learnMore', 'Learn more');
+			$message = $this->params->get('message', 'Um unsere Webseite für Sie optimal zu gestalten und fortlaufend verbessern zu können, verwenden wir Cookies. Durch die weitere Nutzung der Webseite stimmen Sie der Verwendung von Cookies zu. Weitere Informationen zu Cookies erhalten Sie in unserer');
+			$dismiss = $this->params->get('dismiss', 'Verstanden');
+			$allow = $this->params->get('acceptbutton', 'Cookies zulassen');
+			$deny = $this->params->get('denybutton', 'Cookies ablehnen');
+			$link = $this->params->get('learnMore', 'Datenschutzerklärung');
 
 			$href = $this->params->get('link', '');
 			$link_url = $this->params->get('link_url', '');
