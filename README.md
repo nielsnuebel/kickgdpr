@@ -1,5 +1,7 @@
 # Kick GDPR / DSGVO - System Plugin for Joomla
 
+![kickgdpr](https://user-images.githubusercontent.com/3214077/39705092-ab896c10-520d-11e8-9cd1-75d4b6d2373d.png)
+
 Cookie hint plugin based on Cookie Consent for Joomla! CMS. Integrates Google Analytics the easy way.
 
 ## Getting started
@@ -9,4 +11,13 @@ No rocket science required - just install it using the normal Joomla installer.
 
 ### Configuration
 1. enable the plugin
-2. set the amount of fields you want to add in the plugin configuration
+
+### Special Thanks to
+- Insites - for a free solution to the EU Cookie Law
+
+### Authors
+- Niels Nübel @niels_nuebel
+- Stefan Wendhausen @inwend
+
+### Licence
+GNU GENERAL PUBLIC LICENSE V3
