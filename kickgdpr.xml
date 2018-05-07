@@ -42,6 +42,16 @@
                     <option value="0">JNO</option>
                     <option value="1">JYES</option>
                 </field>
+                <field name="disable_facebook"
+                       type="radio"
+                       class="btn-group"
+                       default="0"
+                       label="PLG_SYSTEM_KICKGDPR_PARAMETER_DISABLE_FACEBOOK_LABEL"
+                       description="PLG_SYSTEM_KICKGDPR_PARAMETER_DISABLE_FACEBOOK_DESC"
+                >
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
             </fieldset>
             <fieldset name="cookie" label="PLG_SYSTEM_KICKGDPR_TAB_COOKIE">
                 <field
@@ -245,6 +255,21 @@
                     <option value="0">JNO</option>
                     <option value="1">JYES</option>
                 </field>
+            </fieldset>
+            <fieldset name="facebookpixel" label="PLG_SYSTEM_KICKGDPR_TAB_FACEBOOKPIXEL">
+                <field
+                        name="facebookpixel_spacer"
+                        type="spacer"
+                        label="PLG_SYSTEM_KICKGDPR_TAB_FACEBOOKPIXEL_DESC"
+                />
+                <!-- Facebook-Pixel-ID -->
+                <field name="pixel_id"
+                       class=""
+                       type="text"
+                       default=""
+                       label="PLG_SYSTEM_KICKGDPR_PARAMETER_PIXEL_ID_LABEL"
+                       description="PLG_SYSTEM_KICKGDPR_PARAMETER_PIXEL_ID_DESC"
+                />
             </fieldset>
         </fields>
     </config>
