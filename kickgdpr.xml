@@ -68,6 +68,7 @@
                 >
                     <option value="0">JNO</option>
                     <option value="1">JYES</option>
+                    <option value="2">PLG_SYSTEM_KICKGDPR_CLOUDFLARE_VALUE_OWN</option>
                 </field>
                 <field name="cookie_position" type="list" default="" label="PLG_SYSTEM_KICKGDPR_COOKIE_POSITION_LABEL"
                        description="PLG_SYSTEM_KICKGDPR_COOKIE_POSITION_DESC">
