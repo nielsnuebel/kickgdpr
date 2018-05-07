@@ -4,21 +4,21 @@
     <author>Niels Nübel</author>
     <creationDate>May 2018</creationDate>
     <copyright>(c) 2009 - 2018 Kicktemp. All rights reserved.</copyright>
-    <license>GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html</license>
+    <license>GNU General Public License version 3 or later; see LICENSE.txt</license>
     <authorEmail>info@kicktemp.com</authorEmail>
     <authorUrl>www.kicktemp.com</authorUrl>
     <version>1.2.0</version>
     <description>PLG_SYSTEM_KICKGDPR_XML_DESCRIPTION</description>
-
     <files>
         <folder>language</folder>
         <file plugin="kickgdpr">kickgdpr.php</file>
+        <file plugin="kickgdpr">LICENSE.txt</file>
+        <file plugin="kickgdpr">README.md</file>
     </files>
     <media folder="media" destination="plg_system_kickgdpr">
         <folder>js</folder>
         <folder>css</folder>
     </media>
-
     <config>
         <fields name="params">
             <fieldset name="basic">
