@@ -23,259 +23,267 @@ defined('_JEXEC') or die;
  */
 class PlgSystemKickGdpr extends JPlugin
 {
-	/**
-	 * Application object
-	 *
-	 * @var    JApplicationCms
-	 * @since  3.2
-	 */
-	protected $app;
+    /**
+     * Application object
+     *
+     * @var    JApplicationCms
+     * @since  3.2
+     */
+    protected $app;
 
-	/**
-	 * \JDocument object
-	 *
-	 * @var    \JDocument
-	 * @since  3.2
-	 */
-	protected $doc;
+    /**
+     * \JDocument object
+     *
+     * @var    \JDocument
+     * @since  3.2
+     */
+    protected $doc;
 
-	/**
-	 * Affects constructor behavior. If true, language files will be loaded automatically.
-	 *
-	 * @var    boolean
-	 * @since  3.1
-	 */
-	protected $autoloadLanguage = true;
+    /**
+     * Affects constructor behavior. If true, language files will be loaded automatically.
+     *
+     * @var    boolean
+     * @since  3.1
+     */
+    protected $autoloadLanguage = true;
 
-	/**
-	 * Constructor.
-	 *
-	 * @param   object  &$subject  The object to observe -- event dispatcher.
-	 * @param   object  $config    An optional associative array of configuration settings.
-	 *
-	 * @since   1.6
-	 */
-	public function __construct(&$subject, $config)
-	{
-		parent::__construct($subject, $config);
+    /**
+     * Constructor.
+     *
+     * @param   object  &$subject  The object to observe -- event dispatcher.
+     * @param   object  $config    An optional associative array of configuration settings.
+     *
+     * @since   1.6
+     */
+    public function __construct(&$subject, $config)
+    {
+        parent::__construct($subject, $config);
 
-		if (property_exists($this, 'doc'))
-		{
-			$reflection = new \ReflectionClass($this);
+        if (property_exists($this, 'doc'))
+        {
+            $reflection = new \ReflectionClass($this);
 
-			if ($reflection->getProperty('doc')->isPrivate() === false && $this->doc === null)
-			{
-				$this->doc = \JFactory::getDocument();
-			}
-		}
-	}
+            if ($reflection->getProperty('doc')->isPrivate() === false && $this->doc === null)
+            {
+                $this->doc = \JFactory::getDocument();
+            }
+        }
+    }
 
-	/**
-	 * onBeforeCompileHead
-	 *
-	 * @return  void
-	 *
-	 * @since   1.6
-	 */
-	public function onBeforeCompileHead()
-	{
-		if (!$this->app->isSite())
-		{
-			return;
-		}
+    /**
+     * onBeforeCompileHead
+     *
+     * @return  void
+     *
+     * @since   1.6
+     */
+    public function onBeforeCompileHead()
+    {
+        if (!$this->app->isSite())
+        {
+            return;
+        }
 
-		if ((!$ga_code = $this->params->get('ga_code', false) && $this->params->get('disable_ga', false)) && $this->params->get('disable_cookie', false))
-		{
-			return;
-		}
+        if ((!$ga_code = $this->params->get('ga_code', false) && $this->params->get('disable_ga', false)) && $this->params->get('disable_cookie', false))
+        {
+            return;
+        }
 
-		// Add Google Analytics to Head
-		if ($ga_code = $this->params->get('ga_code', false) && !$this->params->get('disable_ga', false))
-		{
-			$js = array();
+        // Add Google Analytics to Head
+        if ($ga_code = $this->params->get('ga_code', false) && !$this->params->get('disable_ga', false))
+        {
+            $js = array();
 
-			$js[] = "";
-			$js[] = "var disableStr = 'ga-disable-" . $ga_code . "';";
-			$js[] = "";
-			$js[] = "/* Function to detect opted out users */";
-			$js[] = "function __kickgaTrackerIsOptedOut() {";
-			$js[] = "	return document.cookie.indexOf(disableStr + '=true') > -1;";
-			$js[] = "};";
-			$js[] = "";
-			$js[] = "/* Disable tracking if the opt-out cookie exists. */";
-			$js[] = "if ( __kickgaTrackerIsOptedOut() ) {";
-			$js[] = "	window[disableStr] = true;";
-			$js[] = "};";
-			$js[] = "";
-			$js[] = "/* Disable tracking if do not track active. */";
-			$js[] = "if (navigator.doNotTrack == 1) {";
-			$js[] = "	window[disableStr] = true;";
-			$js[] = "};";
-			$js[] = "";
-			$js[] = "function __kickgaTrackerOptout() {";
-			$js[] = "   document.cookie = disableStr + '=true; expires=Thu, 31 Dec 2099 23:59:59 UTC; path=/';";
-			$js[] = "	window[disableStr] = true;";
-			$js[] = "	alert('" . JText::_('PLG_SYSTEM_KICKGDPR_INFO_GA_OPTOUT_TEXT') . "');";
-			$js[] = "}";
-			$js[] = "";
-			$js[] = "if (!window[disableStr]) {";
-			$js[] = "<!-- Google Analytics -->";
-			$js[] = "(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){";
-			$js[] = "(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),";
-			$js[] = "m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)";
-			$js[] = "})(window,document,'script','https://www.google-analytics.com/analytics.js','__kickgaTracker');";
-			$js[] = "";
-			$js[] = "__kickgaTracker('create', '" . $ga_code . "', 'auto')";
+            $js[] = "";
+            $js[] = "var disableStr = 'ga-disable-" . $ga_code . "';";
+            $js[] = "";
+            $js[] = "/* Function to detect opted out users */";
+            $js[] = "function __kickgaTrackerIsOptedOut() {";
+            $js[] = "	return document.cookie.indexOf(disableStr + '=true') > -1;";
+            $js[] = "};";
+            $js[] = "";
+            $js[] = "/* Disable tracking if the opt-out cookie exists. */";
+            $js[] = "if ( __kickgaTrackerIsOptedOut() ) {";
+            $js[] = "	window[disableStr] = true;";
+            $js[] = "};";
+            $js[] = "";
+            $js[] = "/* Disable tracking if do not track active. */";
+            $js[] = "if (navigator.doNotTrack == 1) {";
+            $js[] = "	window[disableStr] = true;";
+            $js[] = "};";
+            $js[] = "";
+            $js[] = "function __kickgaTrackerOptout() {";
+            $js[] = "   document.cookie = disableStr + '=true; expires=Thu, 31 Dec 2099 23:59:59 UTC; path=/';";
+            $js[] = "	window[disableStr] = true;";
+            $js[] = "	alert('" . JText::_('PLG_SYSTEM_KICKGDPR_INFO_GA_OPTOUT_TEXT') . "');";
+            $js[] = "}";
+            $js[] = "";
+            $js[] = "if (!window[disableStr]) {";
+            $js[] = "<!-- Google Analytics -->";
+            $js[] = "(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){";
+            $js[] = "(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),";
+            $js[] = "m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)";
+            $js[] = "})(window,document,'script','https://www.google-analytics.com/analytics.js','__kickgaTracker');";
+            $js[] = "";
+            $js[] = "__kickgaTracker('create', '" . $ga_code . "', 'auto')";
 
-			if ($this->params->get('ga_forceSSL', true))
-			{
-				$js[] = "__kickgaTracker('set', 'forceSSL', true);";
-			}
+            if ($this->params->get('ga_forceSSL', true))
+            {
+                $js[] = "__kickgaTracker('set', 'forceSSL', true);";
+            }
 
-			if ($this->params->get('ga_anonymizeIp', true))
-			{
-				$js[] = "__kickgaTracker('set', 'anonymizeIp', true);";
-			}
+            if ($this->params->get('ga_anonymizeIp', true))
+            {
+                $js[] = "__kickgaTracker('set', 'anonymizeIp', true);";
+            }
 
-			if ($this->params->get('ga_displayfeatures', false))
-			{
-				$js[] = "__kickgaTracker('require', 'displayfeatures');";
-			}
+            if ($this->params->get('ga_displayfeatures', false))
+            {
+                $js[] = "__kickgaTracker('require', 'displayfeatures');";
+            }
 
-			if ($this->params->get('ga_linkid', false))
-			{
-				$js[] = "__kickgaTracker('require', 'linkid', 'linkid.js');";
-			}
+            if ($this->params->get('ga_linkid', false))
+            {
+                $js[] = "__kickgaTracker('require', 'linkid', 'linkid.js');";
+            }
 
-			$js[] = "__kickgaTracker('send', 'pageview');";
-			$js[] = "}";
-			$js[] = "";
+            $js[] = "__kickgaTracker('send', 'pageview');";
+            $js[] = "}";
+            $js[] = "";
 
-			$js[] = "<!-- End Google Analytics -->";
+            $js[] = "<!-- End Google Analytics -->";
 
-			$headjs = implode("\n", $js);
+            $headjs = implode("\n", $js);
 
-			$this->doc->addScriptDeclaration($headjs);
-		}
+            $this->doc->addScriptDeclaration($headjs);
+        }
 
-		// Add Cookie Info
-		if (!$this->params->get('disable_cookie', false))
-		{
-			$jssrc = 'plg_system_kickgdpr/cookieconsent.min.js';
-			$csssrc = 'plg_system_kickgdpr/cookieconsent.min.css';
+        // Add Cookie Info
+        if (!$this->params->get('disable_cookie', false))
+        {
+            $js_css_source = $this->params->get('js_css_source', 'default');
 
-			if ($this->params->get('cloudflare', false))
-			{
-				$jssrc = '//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js';
-				$csssrc = '//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css';
-			}
+            if ($js_css_source === 'default')
+            {
+                $jssrc  = 'plg_system_kickgdpr/cookieconsent.min.js';
+                $csssrc = 'plg_system_kickgdpr/cookieconsent.min.css';
+            }
 
-			JHtml::_('script', $jssrc, array('version' => 'auto', 'relative' => true));
-			JHtml::_('stylesheet', $csssrc, array('version' => 'auto', 'relative' => true));
+            if ($js_css_source === 'cloudflare')
+            {
+                $jssrc = '//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.6/cookieconsent.min.js';
+                $csssrc = '//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.6/cookieconsent.min.css';
+            }
 
-			// Settings
-			$banner_color = $this->params->get('banner_color', '#000000');
-			$banner_text = $this->params->get('banner_text', '#FFFFFF');
-			$button_color = $this->params->get('button_color', '#F1D600');
-			$button_text = $this->params->get('button_text', '#000000');
-			$position = explode(' ', $this->params->get('cookie_position', 'bottom'));
-			$type = $this->params->get('compliance_type', '');
-			$theme = $this->params->get('cookie_layout', 'block');
-			$message = $this->params->get('message', 'Um unsere Webseite für Sie optimal zu gestalten und fortlaufend verbessern zu können, verwenden wir Cookies. Durch die weitere Nutzung der Webseite stimmen Sie der Verwendung von Cookies zu. Weitere Informationen zu Cookies erhalten Sie in unserer');
-			$dismiss = $this->params->get('dismiss', 'Verstanden');
-			$allow = $this->params->get('acceptbutton', 'Cookies zulassen');
-			$deny = $this->params->get('denybutton', 'Cookies ablehnen');
-			$link = $this->params->get('learnMore', 'Datenschutzerklärung');
+            if ($js_css_source === 'cloudflare' || $js_css_source === 'default')
+            {
+                JHtml::_('script', $jssrc, array('version' => 'auto', 'relative' => true));
+                JHtml::_('stylesheet', $csssrc, array('version' => 'auto', 'relative' => true));
+            }
 
-			$href = $this->params->get('link', '');
-			$link_url = $this->params->get('link_url', '');
-			$href = (isset($href) && '' != $href) ? JRoute::_("index.php?Itemid={$href}") : false;
-			$href = (isset($link_url) && '' != $link_url && !$href) ? $link_url : $href;
+            // Settings
+            $banner_color = $this->params->get('banner_color', '#000000');
+            $banner_text = $this->params->get('banner_text', '#FFFFFF');
+            $button_color = $this->params->get('button_color', '#F1D600');
+            $button_text = $this->params->get('button_text', '#000000');
+            $position = explode(' ', $this->params->get('cookie_position', 'bottom'));
+            $type = $this->params->get('compliance_type', '');
+            $theme = $this->params->get('cookie_layout', 'block');
+            $message = $this->params->get('message', 'PLG_SYSTEM_KICKGDPR_MESSAGE_DEFAULT');
+            $dismiss = $this->params->get('dismiss', 'PLG_SYSTEM_KICKGDPR_DISMISS_DEFAULT');
+            $allow = $this->params->get('acceptbutton', 'PLG_SYSTEM_KICKGDPR_ACCEPTBUTTON_DEFAULT');
+            $deny = $this->params->get('denybutton', 'PLG_SYSTEM_KICKGDPR_DENYBUTTON_DEFAULT');
+            $link = $this->params->get('learnMore', 'PLG_SYSTEM_KICKGDPR_LEARNMORE_DEFAULT');
 
-			if ($theme == 'wire')
-			{
-				$border = $button_color;
-				$button_color = 'transparent';
-			}
+            $href = $this->params->get('link', '');
+            $link_url = $this->params->get('link_url', '');
+            $href = (isset($href) && '' != $href) ? JRoute::_("index.php?Itemid={$href}") : false;
+            $href = (isset($link_url) && '' != $link_url && !$href) ? $link_url : $href;
 
-			$js = array();
-			$js[] = '<!-- Start Cookie Alert -->';
-			$js[] = 'window.addEventListener("load", function(){';
-			$js[] = 'window.cookieconsent.initialise({';
-			$js[] = '  "palette": {';
-			$js[] = '    "popup": {';
-			$js[] = '      "background": "' . $banner_color . '",';
-			$js[] = '      "text": "' . $banner_text . '"';
-			$js[] = '    },';
-			$js[] = '    "button": {';
-			$js[] = '      "background": "' . $button_color . '",';
-			$js[] = '      "text": "' . $button_text . '",';
+            if ($theme == 'wire')
+            {
+                $border = $button_color;
+                $button_color = 'transparent';
+            }
 
-			if (isset($border))
-			{
-				$js[] = '      "border": "' . $border . '"';
-			}
+            $js = array();
+            $js[] = '<!-- Start Cookie Alert -->';
+            $js[] = 'window.addEventListener("load", function(){';
+            $js[] = 'window.cookieconsent.initialise({';
+            $js[] = '  "palette": {';
+            $js[] = '    "popup": {';
+            $js[] = '      "background": "' . $banner_color . '",';
+            $js[] = '      "text": "' . $banner_text . '"';
+            $js[] = '    },';
+            $js[] = '    "button": {';
+            $js[] = '      "background": "' . $button_color . '",';
+            $js[] = '      "text": "' . $button_text . '",';
 
-			$js[] = '    }';
-			$js[] = '  },';
-			$js[] = '  "theme": "' . $theme . '",';
-			$js[] = '  "position": "' . $position[0] . '",';
+            if (isset($border))
+            {
+                $js[] = '      "border": "' . $border . '"';
+            }
 
-			if (isset($position[1]))
-			{
-				$js[] = '  "static": true,';
-			}
+            $js[] = '    }';
+            $js[] = '  },';
+            $js[] = '  "theme": "' . $theme . '",';
+            $js[] = '  "position": "' . $position[0] . '",';
 
-			$js[] = '  "type": "' . $type . '",';
-			$js[] = '  "content": {';
-			$js[] = '    "message": "' . JText::_($message) . '",';
-			$js[] = '    "dismiss": "' . JText::_($dismiss) . '",';
-			$js[] = '    "allow": "' . JText::_($allow) . '",';
-			$js[] = '    "deny": "' . JText::_($deny) . '",';
-			$js[] = '    "link": "' . JText::_($link) . '",';
-			$js[] = '    "href": "' . JText::_($href) . '",';
-			$js[] = '  }';
-			$js[] = '})});';
+            if (isset($position[1]))
+            {
+                $js[] = '  "static": true,';
+            }
 
-			$js[] = "<!-- End Cookie Alert -->";
-			$headjs = implode("\n", $js);
+            $js[] = '  "type": "' . $type . '",';
+            $js[] = '  "content": {';
+            $js[] = '    "message": "' . JText::_($message) . '",';
+            $js[] = '    "dismiss": "' . JText::_($dismiss) . '",';
+            $js[] = '    "allow": "' . JText::_($allow) . '",';
+            $js[] = '    "deny": "' . JText::_($deny) . '",';
+            $js[] = '    "link": "' . JText::_($link) . '",';
+            $js[] = '    "href": "' . JText::_($href) . '",';
+            $js[] = '  }';
+            $js[] = '})});';
 
-			$this->doc->addScriptDeclaration($headjs);
-		}
-	}
+            $js[] = "<!-- End Cookie Alert -->";
+            $headjs = implode("\n", $js);
 
-	/**
-	 * onContentPrepare
-	 *
-	 * @param   string   $context   The context of the content being passed to the plugin.
-	 * @param   object   &$article  The article object.  Note $article->text is also available
-	 * @param   mixed    &$params   The article params
-	 * @param   integer  $page      The 'page' number
-	 *
-	 * @return  void
-	 */
-	public function onContentPrepare($context, &$article, &$params, $page = 0)
-	{
-		if (!$this->app->isSite())
-		{
-			return;
-		}
+            $this->doc->addScriptDeclaration($headjs);
+        }
+    }
 
-		if ($context != 'com_content.article')
-		{
-			return;
-		}
+    /**
+     * onContentPrepare
+     *
+     * @param   string   $context   The context of the content being passed to the plugin.
+     * @param   object   &$article  The article object.  Note $article->text is also available
+     * @param   mixed    &$params   The article params
+     * @param   integer  $page      The 'page' number
+     *
+     * @return  void
+     */
+    public function onContentPrepare($context, &$article, &$params, $page = 0)
+    {
+        if (!$this->app->isSite())
+        {
+            return;
+        }
 
-		// Simple performance check to determine whether bot should process further
-		if (strpos($article->text, '{kickgdpr_ga_optout}') === false && strpos($article->text, '{/kickgdpr_ga_optout}') === false)
-		{
-			return;
-		}
+        if ($context != 'com_content.article')
+        {
+            return;
+        }
 
-		$gaOptoutOpenlink = '<a href="#" onClick="__kickgaTrackerOptout(); return false;" >';
-		$gaOptoutCloselink = '</a>';
+        // Simple performance check to determine whether bot should process further
+        if (strpos($article->text, '{kickgdpr_ga_optout}') === false && strpos($article->text, '{/kickgdpr_ga_optout}') === false)
+        {
+            return;
+        }
 
-		$article->text = str_replace('{kickgdpr_ga_optout}', $gaOptoutOpenlink, $article->text);
-		$article->text = str_replace('{/kickgdpr_ga_optout}', $gaOptoutCloselink, $article->text);
-	}
+        $gaOptoutOpenlink = '<a href="#" onClick="__kickgaTrackerOptout(); return false;" >';
+        $gaOptoutCloselink = '</a>';
+
+        $article->text = str_replace('{kickgdpr_ga_optout}', $gaOptoutOpenlink, $article->text);
+        $article->text = str_replace('{/kickgdpr_ga_optout}', $gaOptoutCloselink, $article->text);
+    }
 }
