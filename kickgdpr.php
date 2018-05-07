@@ -84,7 +84,9 @@ class PlgSystemKickGdpr extends JPlugin
 			return;
 		}
 
-		if ((!$ga_code = $this->params->get('ga_code', false) && $this->params->get('disable_ga', false)) && $this->params->get('disable_cookie', false))
+		if ((!$ga_code = $this->params->get('ga_code', false) && $this->params->get('disable_ga', false))
+			&& (!$pixel_id = $this->params->get('pixel_id', false)
+			&& $this->params->get('disable_facebook', false)) && $this->params->get('disable_cookie', false))
 		{
 			return;
 		}
