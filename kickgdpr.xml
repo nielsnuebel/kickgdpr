@@ -271,6 +271,22 @@
                        description="PLG_SYSTEM_KICKGDPR_PARAMETER_PIXEL_ID_DESC"
                 />
             </fieldset>
+            <fieldset name="customcode" label="PLG_SYSTEM_KICKGDPR_TAB_CUSTOMCODE">
+                <field
+                        name="customcode_spacer"
+                        type="spacer"
+                        label="PLG_SYSTEM_KICKGDPR_TAB_CUSTOMCODE_DESC"
+                />
+                <!-- Custom Code -->
+                <field name="customcode"
+                       class=""
+                       type="textarea"
+                       label="PLG_SYSTEM_KICKGDPR_PARAMETER_CUSTOMCODE_LABEL"
+                       description="PLG_SYSTEM_KICKGDPR_PARAMETER_CUSTOMCODE_DESC"
+                       cols="25"
+                       rows="5"
+                />
+            </fieldset>
         </fields>
     </config>
     <updateservers>
