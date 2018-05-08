@@ -127,7 +127,7 @@
                         type="spacer"
                         label="PLG_SYSTEM_KICKGDPR_SPACER_LEARNMORE"
                 />
-                <field name="lang_links" type="subform" formsource="plugins/system/kickgdpr/langlinks.xml" min="0" max="99" multiple="true" layout="joomla.form.field.subform.repeatable" groupByFieldset="true" label="PLG_SYSTEM_KICKGDPR_LANG_LINKS_LABEL" description="PLG_SYSTEM_KICKGDPR_LANG_LINKS_DESC" />
+                <field name="lang_links" type="subform" formsource="plugins/system/kickgdpr/langlinks.xml" min="1" max="99" multiple="true" layout="joomla.form.field.subform.repeatable" groupByFieldset="true" label="PLG_SYSTEM_KICKGDPR_LANG_LINKS_LABEL" description="PLG_SYSTEM_KICKGDPR_LANG_LINKS_DESC" />
                 <field
                         name="compliance_spacer"
                         type="spacer"

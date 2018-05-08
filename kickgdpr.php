@@ -182,6 +182,7 @@ class PlgSystemKickGdpr extends JPlugin
 			}
 
 			// Settings
+			$href = '';
 			$banner_color = $this->params->get('banner_color', '#000000');
 			$banner_text = $this->params->get('banner_text', '#FFFFFF');
 			$button_color = $this->params->get('button_color', '#F1D600');
@@ -196,10 +197,23 @@ class PlgSystemKickGdpr extends JPlugin
 			$link = $this->params->get('learnMore', 'PLG_SYSTEM_KICKGDPR_LEARNMORE_DEFAULT');
 			$expiryDays = $this->params->get('expiryDays', 365);
 
-			$href = $this->params->get('link', '');
-			$link_url = $this->params->get('link_url', '');
-			$href = (isset($href) && '' != $href) ? JRoute::_("index.php?Itemid={$href}") : false;
-			$href = (isset($link_url) && '' != $link_url && !$href) ? $link_url : $href;
+			$lang_links = $this->params->get('lang_links', false);
+
+			if ($lang_links && count($lang_links))
+			{
+				$lang = $this->app->getLanguage()->getTag();
+
+				foreach ($lang_links as $lang_link)
+				{
+					if ($lang_link->language === '*' || $lang_link->language === $lang)
+					{
+						$href = $lang_link->link;
+						$link_url = $lang_link->link_url;
+						$href = (isset($href) && '' != $href) ? JRoute::_("index.php?Itemid={$href}") : false;
+						$href = (isset($link_url) && '' != $link_url && !$href) ? $link_url : $href;
+					}
+				}
+			}
 
 			if ($theme == 'wire')
 			{
