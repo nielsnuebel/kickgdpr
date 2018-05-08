@@ -127,20 +127,7 @@
                         type="spacer"
                         label="PLG_SYSTEM_KICKGDPR_SPACER_LEARNMORE"
                 />
-                <field name="link"
-                       type="menuitem"
-                       default=""
-                       label="PLG_SYSTEM_KICKGDPR_LEARNMORE_LINK_LABEL"
-                       description="PLG_SYSTEM_KICKGDPR_LEARNMORE_LINK_DESC"
-                >
-                    <option value="">JDEFAULT</option>
-                </field>
-                <field name="link_url"
-                       type="text"
-                       default=""
-                       label="PLG_SYSTEM_KICKGDPR_LEARNMORE_LINK_URL_LABEL"
-                       description="PLG_SYSTEM_KICKGDPR_LEARNMORE_LINK_URL_DESC"
-                />
+                <field name="lang_links" type="subform" formsource="plugins/system/kickgdpr/langlinks.xml" min="0" max="99" multiple="true" layout="joomla.form.field.subform.repeatable" groupByFieldset="true" label="PLG_SYSTEM_KICKGDPR_LANG_LINKS_LABEL" description="PLG_SYSTEM_KICKGDPR_LANG_LINKS_DESC" />
                 <field
                         name="compliance_spacer"
                         type="spacer"

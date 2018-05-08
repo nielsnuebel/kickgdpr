@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form>
+    <fieldset name="langlinks" label="PLG_SYSTEM_KICKGDPR_FIELDSET_LANG_LINKS_LABEL">
+        <field name="language" type="contentlanguage"
+               label="JFIELD_LANGUAGE_LABEL"
+               description="COM_CATEGORIES_FIELD_LANGUAGE_DESC"
+               class="span12 small" >
+            <option value="*">JALL</option>
+        </field>
+        <field name="link"
+               type="menuitem"
+               default=""
+               label="PLG_SYSTEM_KICKGDPR_LEARNMORE_LINK_LABEL"
+               description="PLG_SYSTEM_KICKGDPR_LEARNMORE_LINK_DESC"
+        >
+            <option value="">JDEFAULT</option>
+        </field>
+        <field name="link_url"
+               type="text"
+               default=""
+               label="PLG_SYSTEM_KICKGDPR_LEARNMORE_LINK_URL_LABEL"
+               description="PLG_SYSTEM_KICKGDPR_LEARNMORE_LINK_URL_DESC"
+        />
+    </fieldset>
+</form>
