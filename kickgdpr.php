@@ -327,7 +327,7 @@ class PlgSystemKickGdpr extends JPlugin
 
 			$js[] = "}";
 			$js[] = "";
-			$js[] = "// Init handleCookies if the user dosen't choose any options";
+			$js[] = "// Init handleCookies if the user doesn't choose any options";
 			$js[] = "if (document.cookie.split(';').filter(function(item) {";
 			$js[] = "    return item.indexOf('cookieconsent_status=') >= 0";
 			$js[] = "}).length == 0) {";
