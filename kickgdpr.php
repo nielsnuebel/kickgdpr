@@ -397,9 +397,14 @@ class PlgSystemKickGdpr extends JPlugin
 		$article->text = str_replace('{/kickgdpr_ga_optout}', $gaOptoutCloselink, $article->text);
 	}
 
-	public function onKickGDPR($cookieConsentCode = false)
+	/**
+	 * Plugin Trigger 
+	 *
+	 * @param string $cookieConsentCode
+	 */
+	public function onKickGDPR($cookieConsentCode = '')
 	{
-		if($cookieConsentCode)
+		if($cookieConsentCode != '')
 		{
 			$this->trigger_content .= $cookieConsentCode;
 		}
