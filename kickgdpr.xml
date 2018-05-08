@@ -70,6 +70,17 @@
                     <option value="cloudflare">PLG_SYSTEM_KICKGDPR_SOURCE_CLOUDFLARE</option>
                     <option value="custom">PLG_SYSTEM_KICKGDPR_SOURCE_CUSTOM</option>
                 </field>
+                <field name="expiryDays"
+                       type="list"
+                       default="365"
+                       label="PLG_SYSTEM_KICKGDPR_EXPIRYDAYS_LABEL"
+                       description="PLG_SYSTEM_KICKGDPR_EXPIRYDAYS_DESC">
+                    <option value="7">PLG_SYSTEM_KICKGDPR_EXPIRYDAYS_WEEK</option>
+                    <option value="30">PLG_SYSTEM_KICKGDPR_EXPIRYDAYS_30DAYS</option>
+                    <option value="90">PLG_SYSTEM_KICKGDPR_EXPIRYDAYS_90DAYS</option>
+                    <option value="365">PLG_SYSTEM_KICKGDPR_EXPIRYDAYS_YEAR</option>
+                    <option value="730">PLG_SYSTEM_KICKGDPR_EXPIRYDAYS_2YEARS</option>
+                </field>
                 <field name="cookie_position" type="list" default="" label="PLG_SYSTEM_KICKGDPR_COOKIE_POSITION_LABEL"
                        description="PLG_SYSTEM_KICKGDPR_COOKIE_POSITION_DESC">
                     <option value="">PLG_SYSTEM_KICKGDPR_OPTION_POSITION_BANNER_BOTTOM</option>
@@ -142,17 +153,6 @@
                     <option value="">JDEFAULT</option>
                     <option value="opt-out">PLG_SYSTEM_KICKGDPR_OPTION_OPTOUT</option>
                     <option value="opt-in">PLG_SYSTEM_KICKGDPR_OPTION_OPTIN</option>
-                </field>
-                <field name="expiryDays"
-                       type="list"
-                       default="365"
-                       label="PLG_SYSTEM_KICKGDPR_EXPIRYDAYS_LABEL"
-                       description="PLG_SYSTEM_KICKGDPR_EXPIRYDAYS_DESC">
-                    <option value="7">PLG_SYSTEM_KICKGDPR_EXPIRYDAYS_WEEK</option>
-                    <option value="30">PLG_SYSTEM_KICKGDPR_EXPIRYDAYS_30DAYS</option>
-                    <option value="90">PLG_SYSTEM_KICKGDPR_EXPIRYDAYS_90DAYS</option>
-                    <option value="365">PLG_SYSTEM_KICKGDPR_EXPIRYDAYS_YEAR</option>
-                    <option value="730">PLG_SYSTEM_KICKGDPR_EXPIRYDAYS_2YEARS</option>
                 </field>
                 <field
                         name="advanced_alert"

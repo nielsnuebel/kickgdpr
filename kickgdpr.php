@@ -311,9 +311,14 @@ class PlgSystemKickGdpr extends JPlugin
 				$js[] = "";
 			}
 
+			// Add Facebook Pixel Code to Head
+			if ($customcode && $customcode != '')
+			{
 				$js[] = '    <!-- Custom Code -->';
 				$js[] = '    ' . $customcode;
 				$js[] = '    <!-- End Custom Code -->';
+			}
+				// $js[] = 'PUT your Code here';
 
 			if ($type != '' && ($type == 'opt-out' || $type == 'opt-in'))
 			{
