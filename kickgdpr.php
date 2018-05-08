@@ -48,6 +48,14 @@ class PlgSystemKickGdpr extends JPlugin
 	protected $autoloadLanguage = true;
 
 	/**
+	 * Plugin Trigger Content Code
+	 *
+	 * @var    String
+	 * @since  3.2
+	 */
+	protected $trigger_content = null;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param   object  &$subject  The object to observe -- event dispatcher.
@@ -311,12 +319,21 @@ class PlgSystemKickGdpr extends JPlugin
 				$js[] = "";
 			}
 
-			// Add Facebook Pixel Code to Head
+			// Add Custom Code from Plugin Params to Head
 			if ($customcode && $customcode != '')
 			{
 				$js[] = '    <!-- Custom Code -->';
 				$js[] = '    ' . $customcode;
 				$js[] = '    <!-- End Custom Code -->';
+			}
+
+			// Add Custom Code from Plugin Trigger onKickGDPR to Head
+			$trigger_content = $this->trigger_content;
+			if ($trigger_content && $trigger_content != '')
+			{
+				$js[] = '    <!-- Plugin Trigger Code -->';
+				$js[] = '    ' . $trigger_content;
+				$js[] = '    <!-- End Plugin Trigger Code -->';
 			}
 				// $js[] = 'PUT your Code here';
 
@@ -378,5 +395,13 @@ class PlgSystemKickGdpr extends JPlugin
 
 		$article->text = str_replace('{kickgdpr_ga_optout}', $gaOptoutOpenlink, $article->text);
 		$article->text = str_replace('{/kickgdpr_ga_optout}', $gaOptoutCloselink, $article->text);
+	}
+
+	public function onKickGDPR($cookieConsentCode = false)
+	{
+		if($cookieConsentCode)
+		{
+			$this->trigger_content .= $cookieConsentCode;
+		}
 	}
 }

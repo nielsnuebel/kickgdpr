@@ -12,6 +12,7 @@
     <files>
         <folder>language</folder>
         <file plugin="kickgdpr">kickgdpr.php</file>
+        <file plugin="kickgdpr">langlinks.xml</file>
         <file plugin="kickgdpr">LICENSE.txt</file>
         <file plugin="kickgdpr">README.md</file>
     </files>
