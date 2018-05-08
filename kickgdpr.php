@@ -84,7 +84,10 @@ class PlgSystemKickGdpr extends JPlugin
 			return;
 		}
 
-		if ((!$ga_code = $this->params->get('ga_code', false) && $this->params->get('disable_ga', false)) && $this->params->get('disable_cookie', false))
+		$ga_code = $this->params->get('ga_code', false);
+		$pixel_id = $this->params->get('pixel_id', false);
+
+		if ((!$ga_code && $this->params->get('disable_ga', false)) && (!$pixel_id && $this->params->get('disable_facebook', false)) && $this->params->get('disable_cookie', false))
 		{
 			return;
 		}
@@ -118,40 +121,6 @@ class PlgSystemKickGdpr extends JPlugin
 			$js[] = "	alert('" . JText::_('PLG_SYSTEM_KICKGDPR_INFO_GA_OPTOUT_TEXT') . "');";
 			$js[] = "}";
 			$js[] = "";
-			$js[] = "if (!window[disableStr]) {";
-			$js[] = "<!-- Google Analytics -->";
-			$js[] = "(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){";
-			$js[] = "(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),";
-			$js[] = "m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)";
-			$js[] = "})(window,document,'script','https://www.google-analytics.com/analytics.js','__kickgaTracker');";
-			$js[] = "";
-			$js[] = "__kickgaTracker('create', '" . $ga_code . "', 'auto')";
-
-			if ($this->params->get('ga_forceSSL', true))
-			{
-				$js[] = "__kickgaTracker('set', 'forceSSL', true);";
-			}
-
-			if ($this->params->get('ga_anonymizeIp', true))
-			{
-				$js[] = "__kickgaTracker('set', 'anonymizeIp', true);";
-			}
-
-			if ($this->params->get('ga_displayfeatures', false))
-			{
-				$js[] = "__kickgaTracker('require', 'displayfeatures');";
-			}
-
-			if ($this->params->get('ga_linkid', false))
-			{
-				$js[] = "__kickgaTracker('require', 'linkid', 'linkid.js');";
-			}
-
-			$js[] = "__kickgaTracker('send', 'pageview');";
-			$js[] = "}";
-			$js[] = "";
-
-			$js[] = "<!-- End Google Analytics -->";
 
 			$headjs = implode("\n", $js);
 
@@ -196,6 +165,7 @@ class PlgSystemKickGdpr extends JPlugin
 			$deny = $this->params->get('denybutton', 'PLG_SYSTEM_KICKGDPR_DENYBUTTON_DEFAULT');
 			$link = $this->params->get('learnMore', 'PLG_SYSTEM_KICKGDPR_LEARNMORE_DEFAULT');
 			$expiryDays = $this->params->get('expiryDays', 365);
+			$customcode = $this->params->get('customcode', false);
 
 			$lang_links = $this->params->get('lang_links', false);
 
@@ -250,6 +220,7 @@ class PlgSystemKickGdpr extends JPlugin
 			}
 
 			$js[] = '  "type": "' . $type . '",';
+			$js[] = '  "revokeBtn": "<div class=\"cc-revoke {{classes}}\">' . JText::_('PLG_SYSTEM_KICKGDPR_COOKIE_POLICY') . '</div>",';
 			$js[] = '  "content": {';
 			$js[] = '    "message": "' . JText::_($message) . '",';
 			$js[] = '    "dismiss": "' . JText::_($dismiss) . '",';
@@ -260,10 +231,109 @@ class PlgSystemKickGdpr extends JPlugin
 			$js[] = '  },';
 			$js[] = '  "cookie": {';
 			$js[] = '    "expiryDays": ' . (int) $expiryDays;
+			$js[] = '  },';
+			$js[] = '  onInitialise: function (status) {';
+			$js[] = '    handleCookies(status);';
+			$js[] = '  },';
+			$js[] = '  onStatusChange: function (status, chosenBefore) {';
+			$js[] = '    handleCookies(status);';
+			$js[] = '  },';
+			$js[] = '  onRevokeChoice: function () {';
+			$js[] = '    handleCookies(status);';
 			$js[] = '  }';
 			$js[] = '})});';
 
 			$js[] = "<!-- End Cookie Alert -->";
+			$js[] = "function handleCookies(status){";
+
+			if ($type != '' && $type == 'opt-out')
+			{
+				$js[] = '  if (status != "deny") {';
+			}
+
+			if ($type != '' && $type == 'opt-in')
+			{
+				$js[] = '  if (status == "allow") {';
+			}
+
+			// Add Google Analytics to Head
+			if ($ga_code = $this->params->get('ga_code', false) && !$this->params->get('disable_ga', false))
+			{
+				$js[] = "    <!-- Google Analytics -->";
+				$js[] = "    if (!window[disableStr]) {";
+				$js[] = "    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){";
+				$js[] = "    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),";
+				$js[] = "    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)";
+				$js[] = "    })(window,document,'script','https://www.google-analytics.com/analytics.js','__kickgaTracker');";
+				$js[] = "";
+				$js[] = "    __kickgaTracker('create', '" . $ga_code . "', 'auto')";
+				if ($this->params->get('ga_forceSSL', true))
+				{
+					$js[] = "    __kickgaTracker('set', 'forceSSL', true);";
+				}
+
+				if ($this->params->get('ga_anonymizeIp', true))
+				{
+					$js[] = "    __kickgaTracker('set', 'anonymizeIp', true);";
+				}
+
+				if ($this->params->get('ga_displayfeatures', false))
+				{
+					$js[] = "    __kickgaTracker('require', 'displayfeatures');";
+				}
+
+				if ($this->params->get('ga_linkid', false))
+				{
+					$js[] = "    __kickgaTracker('require', 'linkid', 'linkid.js');";
+				}
+
+				$js[] = "    __kickgaTracker('send', 'pageview');";
+				$js[] = "    }";
+				$js[] = "    <!-- End Google Analytics -->";
+				$js[] = "";
+			}
+
+			// Add Facebook Pixel Code to Head
+			if ($pixel_id && !$this->params->get('disable_facebook', false))
+			{
+				$js[] = "    <!-- Facebook Pixel Code -->";
+				$js[] = "    !function(f,b,e,v,n,t,s)";
+				$js[] = "    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?";
+				$js[] = "    n.callMethod.apply(n,arguments):n.queue.push(arguments)};";
+				$js[] = "    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';";
+				$js[] = "    n.queue=[];t=b.createElement(e);t.async=!0;";
+				$js[] = "    t.src=v;s=b.getElementsByTagName(e)[0];";
+				$js[] = "    s.parentNode.insertBefore(t,s)}(window,document,'script',";
+				$js[] = "    'https://connect.facebook.net/en_US/fbevents.js');";
+				$js[] = "    fbq('init', '" . $pixel_id . "');";
+				$js[] = "    fbq('track', 'PageView');";
+				$js[] = "    <!-- End Facebook Pixel Code -->";
+				$js[] = "";
+			}
+
+				$js[] = '    <!-- Custom Code -->';
+				$js[] = '    ' . $customcode;
+				$js[] = '    <!-- End Custom Code -->';
+
+			if ($type != '' && ($type == 'opt-out' || $type == 'opt-in'))
+			{
+				$js[] = '  }';
+			}
+
+			$js[] = "}";
+			$js[] = "";
+			$js[] = "// Init handleCookies if the user dosen't choose any options";
+			$js[] = "if (document.cookie.split(';').filter(function(item) {";
+			$js[] = "    return item.indexOf('cookieconsent_status=') >= 0";
+			$js[] = "}).length == 0) {";
+			$js[] = "  handleCookies('notset');";
+			$js[] = "};";
+
+			/*foreach ($js as $key => $jss)
+			{
+				$js[$key] = ltrim($jss);
+			}*/
+
 			$headjs = implode("\n", $js);
 
 			$this->doc->addScriptDeclaration($headjs);
