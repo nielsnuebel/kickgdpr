@@ -84,9 +84,7 @@ class PlgSystemKickGdpr extends JPlugin
 			return;
 		}
 
-		if ((!$ga_code = $this->params->get('ga_code', false) && $this->params->get('disable_ga', false))
-			&& (!$pixel_id = $this->params->get('pixel_id', false)
-			&& $this->params->get('disable_facebook', false)) && $this->params->get('disable_cookie', false))
+		if ((!$ga_code = $this->params->get('ga_code', false) && $this->params->get('disable_ga', false)) && $this->params->get('disable_cookie', false))
 		{
 			return;
 		}
@@ -163,17 +161,25 @@ class PlgSystemKickGdpr extends JPlugin
 		// Add Cookie Info
 		if (!$this->params->get('disable_cookie', false))
 		{
-			$jssrc = 'plg_system_kickgdpr/cookieconsent.min.js';
-			$csssrc = 'plg_system_kickgdpr/cookieconsent.min.css';
+			$js_css_source = $this->params->get('js_css_source', 'default');
 
-			if ($this->params->get('cloudflare', false))
+			if ($js_css_source === 'default')
 			{
-				$jssrc = '//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js';
-				$csssrc = '//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css';
+				$jssrc  = 'plg_system_kickgdpr/cookieconsent.min.js';
+				$csssrc = 'plg_system_kickgdpr/cookieconsent.min.css';
 			}
 
-			JHtml::_('script', $jssrc, array('version' => 'auto', 'relative' => true));
-			JHtml::_('stylesheet', $csssrc, array('version' => 'auto', 'relative' => true));
+			if ($js_css_source === 'cloudflare')
+			{
+				$jssrc = '//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.6/cookieconsent.min.js';
+				$csssrc = '//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.6/cookieconsent.min.css';
+			}
+
+			if ($js_css_source === 'cloudflare' || $js_css_source === 'default')
+			{
+				JHtml::_('script', $jssrc, array('version' => 'auto', 'relative' => true));
+				JHtml::_('stylesheet', $csssrc, array('version' => 'auto', 'relative' => true));
+			}
 
 			// Settings
 			$banner_color = $this->params->get('banner_color', '#000000');
@@ -183,11 +189,12 @@ class PlgSystemKickGdpr extends JPlugin
 			$position = explode(' ', $this->params->get('cookie_position', 'bottom'));
 			$type = $this->params->get('compliance_type', '');
 			$theme = $this->params->get('cookie_layout', 'block');
-			$message = $this->params->get('message', 'Um unsere Webseite für Sie optimal zu gestalten und fortlaufend verbessern zu können, verwenden wir Cookies. Durch die weitere Nutzung der Webseite stimmen Sie der Verwendung von Cookies zu. Weitere Informationen zu Cookies erhalten Sie in unserer');
-			$dismiss = $this->params->get('dismiss', 'Verstanden');
-			$allow = $this->params->get('acceptbutton', 'Cookies zulassen');
-			$deny = $this->params->get('denybutton', 'Cookies ablehnen');
-			$link = $this->params->get('learnMore', 'Datenschutzerklärung');
+			$message = $this->params->get('message', 'PLG_SYSTEM_KICKGDPR_MESSAGE_DEFAULT');
+			$dismiss = $this->params->get('dismiss', 'PLG_SYSTEM_KICKGDPR_DISMISS_DEFAULT');
+			$allow = $this->params->get('acceptbutton', 'PLG_SYSTEM_KICKGDPR_ACCEPTBUTTON_DEFAULT');
+			$deny = $this->params->get('denybutton', 'PLG_SYSTEM_KICKGDPR_DENYBUTTON_DEFAULT');
+			$link = $this->params->get('learnMore', 'PLG_SYSTEM_KICKGDPR_LEARNMORE_DEFAULT');
+			$expiryDays = $this->params->get('expiryDays', 365);
 
 			$href = $this->params->get('link', '');
 			$link_url = $this->params->get('link_url', '');
@@ -236,6 +243,9 @@ class PlgSystemKickGdpr extends JPlugin
 			$js[] = '    "deny": "' . JText::_($deny) . '",';
 			$js[] = '    "link": "' . JText::_($link) . '",';
 			$js[] = '    "href": "' . JText::_($href) . '",';
+			$js[] = '  },';
+			$js[] = '  "cookie": {';
+			$js[] = '    "expiryDays": ' . (int) $expiryDays;
 			$js[] = '  }';
 			$js[] = '})});';
 

@@ -59,16 +59,16 @@
                         type="spacer"
                         label="PLG_SYSTEM_KICKGDPR_TAB_COOKIE_DESC"
                 />
-                <field name="cloudflare"
+                <field name="js_css_source"
                        type="radio"
                        class="btn-group"
-                       default="0"
-                       label="PLG_SYSTEM_KICKGDPR_PARAMETER_CLOUDFLARE_LABEL"
-                       description="PLG_SYSTEM_KICKGDPR_PARAMETER_CLOUDFLARE_DESC"
+                       default=""
+                       label="PLG_SYSTEM_KICKGDPR_PARAMETER_SOURCE_LABEL"
+                       description="PLG_SYSTEM_KICKGDPR_PARAMETER_SOURCE_DESC"
                 >
-                    <option value="0">PLG_SYSTEM_KICKGDPR_CLOUDFLARE_VALUE_FROM_PLUGIN</option>
-                    <option value="1">PLG_SYSTEM_KICKGDPR_CLOUDFLARE_VALUE_CLOUDFLARE</option>
-                    <option value="2">PLG_SYSTEM_KICKGDPR_CLOUDFLARE_VALUE_FROM_TEMPLATE</option>
+                    <option value="default">PLG_SYSTEM_KICKGDPR_SOURCE_DEFAULT</option>
+                    <option value="cloudflare">PLG_SYSTEM_KICKGDPR_SOURCE_CLOUDFLARE</option>
+                    <option value="custom">PLG_SYSTEM_KICKGDPR_SOURCE_CUSTOM</option>
                 </field>
                 <field name="cookie_position" type="list" default="" label="PLG_SYSTEM_KICKGDPR_COOKIE_POSITION_LABEL"
                        description="PLG_SYSTEM_KICKGDPR_COOKIE_POSITION_DESC">
@@ -141,12 +141,12 @@
                        label="PLG_SYSTEM_KICKGDPR_LEARNMORE_LINK_URL_LABEL"
                        description="PLG_SYSTEM_KICKGDPR_LEARNMORE_LINK_URL_DESC"
                 />
-                 <field
+                <field
                         name="compliance_spacer"
                         type="spacer"
                         label="PLG_SYSTEM_KICKGDPR_COMPLIANCE_SPACER_TEXT"
                 />
-                 <field name="compliance_type"
+                <field name="compliance_type"
                        type="radio"
                        class="btn-group"
                        default=""
@@ -155,6 +155,17 @@
                     <option value="">JDEFAULT</option>
                     <option value="opt-out">PLG_SYSTEM_KICKGDPR_OPTION_OPTOUT</option>
                     <option value="opt-in">PLG_SYSTEM_KICKGDPR_OPTION_OPTIN</option>
+                </field>
+                <field name="expiryDays"
+                       type="list"
+                       default="365"
+                       label="PLG_SYSTEM_KICKGDPR_EXPIRYDAYS_LABEL"
+                       description="PLG_SYSTEM_KICKGDPR_EXPIRYDAYS_DESC">
+                    <option value="7">PLG_SYSTEM_KICKGDPR_EXPIRYDAYS_WEEK</option>
+                    <option value="30">PLG_SYSTEM_KICKGDPR_EXPIRYDAYS_30DAYS</option>
+                    <option value="90">PLG_SYSTEM_KICKGDPR_EXPIRYDAYS_90DAYS</option>
+                    <option value="365">PLG_SYSTEM_KICKGDPR_EXPIRYDAYS_YEAR</option>
+                    <option value="730">PLG_SYSTEM_KICKGDPR_EXPIRYDAYS_2YEARS</option>
                 </field>
                 <field
                         name="advanced_alert"
@@ -168,23 +179,29 @@
                         label="PLG_SYSTEM_KICKGDPR_SPACER_CUSTOM_TEXT"
                 />
                 <field name="message" type="text" class="input-xxlarge"
-                       default="Um unsere Webseite für Sie optimal zu gestalten und fortlaufend verbessern zu können, verwenden wir Cookies. Durch die weitere Nutzung der Webseite stimmen Sie der Verwendung von Cookies zu. Weitere Informationen zu Cookies erhalten Sie in unserer"
+                       default="PLG_SYSTEM_KICKGDPR_MESSAGE_DEFAULT"
                        label="PLG_SYSTEM_KICKGDPR_MESSAGE_LABEL" description="PLG_SYSTEM_KICKGDPR_MESSAGE_DESC" translate_default="true" />
-                <field name="dismiss" type="text" class="input-xxlarge" default="Verstanden"
+                <field name="dismiss" type="text" class="input-xxlarge" default="PLG_SYSTEM_KICKGDPR_DISMISS_DEFAULT"
                        label="PLG_SYSTEM_KICKGDPR_DISMISS_LABEL" description="PLG_SYSTEM_KICKGDPR_DISMISS_DESC" translate_default="true" />
-                <field name="learnMore" type="text" class="input-xxlarge" default="Datenschutzerklärung"
+                <field name="learnMore" type="text" class="input-xxlarge" default="PLG_SYSTEM_KICKGDPR_LEARNMORE_DEFAULT"
                        label="PLG_SYSTEM_KICKGDPR_LEARNMORE_LABEL" description="PLG_SYSTEM_KICKGDPR_LEARNMORE_DESC" translate_default="true" />
-                <field name="denybutton" type="text" class="input-xxlarge" default="Cookies ablehnen"
-                        label="PLG_SYSTEM_KICKGDPR_DENYBUTTON_LABEL"
-                        description="PLG_SYSTEM_KICKGDPR_DENYBUTTON_DESC"
-                        showon="compliance_type:opt-out"
-                        translate_default="true"
+                <field
+                        name="advanced_default_value"
+                        type="spacer"
+                        label="PLG_SYSTEM_KICKGDPR_SPACER_ADVANCED_DEFAULT_VALUE"
+                        showon="compliance_type:opt-out[OR]compliance_type:opt-in"
                 />
-                <field name="acceptbutton" type="text" class="input-xxlarge" default="Cookies zulassen"
-                        label="PLG_SYSTEM_KICKGDPR_ACCEPTBUTTON_LABEL"
-                        description="PLG_SYSTEM_KICKGDPR_ACCEPTBUTTON_DESC"
-                        showon="compliance_type:opt-in"
-                        translate_default="true"
+                <field name="denybutton" type="text" class="input-xxlarge" default="PLG_SYSTEM_KICKGDPR_DENYBUTTON_DEFAULT"
+                       label="PLG_SYSTEM_KICKGDPR_DENYBUTTON_LABEL"
+                       description="PLG_SYSTEM_KICKGDPR_DENYBUTTON_DESC"
+                       showon="compliance_type:opt-out"
+                       translate_default="true"
+                />
+                <field name="acceptbutton" type="text" class="input-xxlarge" default="PLG_SYSTEM_KICKGDPR_ACCEPTBUTTON_DEFAULT"
+                       label="PLG_SYSTEM_KICKGDPR_ACCEPTBUTTON_LABEL"
+                       description="PLG_SYSTEM_KICKGDPR_ACCEPTBUTTON_DESC"
+                       showon="compliance_type:opt-in"
+                       translate_default="true"
                 />
             </fieldset>
             <fieldset name="analytics" label="PLG_SYSTEM_KICKGDPR_TAB_ANALYTICS">
