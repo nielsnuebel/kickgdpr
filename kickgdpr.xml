@@ -63,7 +63,7 @@
                 <field name="js_css_source"
                        type="radio"
                        class="btn-group"
-                       default=""
+                       default="default"
                        label="PLG_SYSTEM_KICKGDPR_PARAMETER_SOURCE_LABEL"
                        description="PLG_SYSTEM_KICKGDPR_PARAMETER_SOURCE_DESC"
                 >
