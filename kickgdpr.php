@@ -101,7 +101,7 @@ class PlgSystemKickGdpr extends JPlugin
 		}
 
 		// Add Google Analytics to Head
-		if ($ga_code = $this->params->get('ga_code', false) && !$this->params->get('disable_ga', false))
+		if ($ga_code && !$this->params->get('disable_ga', false))
 		{
 			$js = array();
 
@@ -265,7 +265,7 @@ class PlgSystemKickGdpr extends JPlugin
 			}
 
 			// Add Google Analytics to Head
-			if ($ga_code = $this->params->get('ga_code', false) && !$this->params->get('disable_ga', false))
+			if ($ga_code && !$this->params->get('disable_ga', false))
 			{
 				$js[] = "    <!-- Google Analytics -->";
 				$js[] = "    if (!window[disableStr]) {";
