@@ -192,6 +192,22 @@
                        translate_default="true"
                 />
             </fieldset>
+             <fieldset name="customcss" label="PLG_SYSTEM_KICKGDPR_TAB_CUSTOMCSS">
+                <field
+                        name="customcss_spacer"
+                        type="spacer"
+                        label="PLG_SYSTEM_KICKGDPR_TAB_CUSTOMCSS_DESC"
+                />
+                <!-- Custom Code -->
+                <field name="customcss"
+                       class=""
+                       type="textarea"
+                       label="PLG_SYSTEM_KICKGDPR_PARAMETER_CUSTOMCSS_LABEL"
+                       description="PLG_SYSTEM_KICKGDPR_PARAMETER_CUSTOMCSS_DESC"
+                       cols="25"
+                       rows="5"
+                />
+            </fieldset>
             <fieldset name="analytics" label="PLG_SYSTEM_KICKGDPR_TAB_ANALYTICS">
                 <field
                         name="ga_spacer"

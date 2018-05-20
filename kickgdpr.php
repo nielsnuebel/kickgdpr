@@ -167,13 +167,16 @@ class PlgSystemKickGdpr extends JPlugin
 			$position = explode(' ', $this->params->get('cookie_position', 'bottom'));
 			$type = $this->params->get('compliance_type', '');
 			$theme = $this->params->get('cookie_layout', 'block');
-			$message = $this->params->get('message', 'PLG_SYSTEM_KICKGDPR_MESSAGE_DEFAULT');
+			$message = JText::_($this->params->get('message', 'PLG_SYSTEM_KICKGDPR_MESSAGE_DEFAULT'));
 			$dismiss = $this->params->get('dismiss', 'PLG_SYSTEM_KICKGDPR_DISMISS_DEFAULT');
 			$allow = $this->params->get('acceptbutton', 'PLG_SYSTEM_KICKGDPR_ACCEPTBUTTON_DEFAULT');
 			$deny = $this->params->get('denybutton', 'PLG_SYSTEM_KICKGDPR_DENYBUTTON_DEFAULT');
 			$link = $this->params->get('learnMore', 'PLG_SYSTEM_KICKGDPR_LEARNMORE_DEFAULT');
 			$expiryDays = $this->params->get('expiryDays', 365);
 			$customcode = $this->params->get('customcode', false);
+			$customcss = $this->params->get('customcss', false);
+
+			$message = $this->_prepareMessageText($message);
 
 			$lang_links = $this->params->get('lang_links', false);
 
@@ -230,7 +233,7 @@ class PlgSystemKickGdpr extends JPlugin
 			$js[] = '  "type": "' . $type . '",';
 			$js[] = '  "revokeBtn": "<div class=\"cc-revoke {{classes}}\">' . JText::_('PLG_SYSTEM_KICKGDPR_COOKIE_POLICY') . '</div>",';
 			$js[] = '  "content": {';
-			$js[] = '    "message": "' . JText::_($message) . '",';
+			$js[] = '    "message": "' . $message . '",';
 			$js[] = '    "dismiss": "' . JText::_($dismiss) . '",';
 			$js[] = '    "allow": "' . JText::_($allow) . '",';
 			$js[] = '    "deny": "' . JText::_($deny) . '",';
@@ -359,6 +362,22 @@ class PlgSystemKickGdpr extends JPlugin
 			$headjs = implode("\n", $js);
 
 			$this->doc->addScriptDeclaration($headjs);
+
+
+			// Custom CSS
+			if ($customcss && $customcss != '')
+			{
+				$customcssarray = array();
+				$customcssarray[] = '';
+				$customcssarray[] = '/* Custom CSS */';
+				$customcssarray[] = $customcss;
+				$customcssarray[] = '/* End Custom CSS */';
+				$customcssarray[] = '';
+
+				$headcss = implode("\n", $customcssarray);
+
+				$this->doc->addStyleDeclaration($headcss);
+			}
 		}
 	}
 
@@ -395,6 +414,28 @@ class PlgSystemKickGdpr extends JPlugin
 
 		$article->text = str_replace('{kickgdpr_ga_optout}', $gaOptoutOpenlink, $article->text);
 		$article->text = str_replace('{/kickgdpr_ga_optout}', $gaOptoutCloselink, $article->text);
+	}
+
+	/**
+	 * Plugin Trigger
+	 *
+	 * @param string $message
+	 */
+	protected function _prepareMessageText($message)
+	{
+		// Simple performance check to determine whether bot should process further
+		if (strpos($message, '{kickgdpr_ga_optout}') === false && strpos($message, '{/kickgdpr_ga_optout}') === false)
+		{
+			return $message;
+		}
+
+		$gaOptoutOpenlink = '<a href=\"#\" onClick=\"__kickgaTrackerOptout(); return false;\">';
+		$gaOptoutCloselink = '</a>';
+
+		$message = str_replace('{kickgdpr_ga_optout}', $gaOptoutOpenlink, $message);
+		$message = str_replace('{/kickgdpr_ga_optout}', $gaOptoutCloselink, $message);
+
+		return $message;
 	}
 
 	/**
