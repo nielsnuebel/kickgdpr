@@ -7,10 +7,11 @@
     <license>GNU General Public License version 3 or later; see LICENSE.txt</license>
     <authorEmail>info@kicktemp.com</authorEmail>
     <authorUrl>www.kicktemp.com</authorUrl>
-    <version>2.0.4</version>
+    <version>2.1.0</version>
     <description>PLG_SYSTEM_KICKGDPR_XML_DESCRIPTION</description>
     <files>
         <folder>language</folder>
+        <folder>fields</folder>
         <file plugin="kickgdpr">kickgdpr.php</file>
         <file plugin="kickgdpr">langlinks.xml</file>
         <file plugin="kickgdpr">LICENSE.txt</file>
@@ -21,8 +22,9 @@
         <folder>css</folder>
     </media>
     <config>
-        <fields name="params">
+        <fields name="params"  addfieldpath="/plugins/system/kickgdpr/fields">
             <fieldset name="basic">
+                <field type="kickdonation" />
                 <field name="disable_cookie"
                        type="radio"
                        class="btn-group"
@@ -55,6 +57,7 @@
                 </field>
             </fieldset>
             <fieldset name="cookie" label="PLG_SYSTEM_KICKGDPR_TAB_COOKIE">
+                <field type="kickdonation" name="kickdonation_cookie"/>
                 <field
                         name="cookie_spacer"
                         type="spacer"
@@ -193,6 +196,7 @@
                 />
             </fieldset>
              <fieldset name="customcss" label="PLG_SYSTEM_KICKGDPR_TAB_CUSTOMCSS">
+                 <field type="kickdonation" name="kickdonation_customcss"/>
                 <field
                         name="customcss_spacer"
                         type="spacer"
@@ -209,6 +213,7 @@
                 />
             </fieldset>
             <fieldset name="analytics" label="PLG_SYSTEM_KICKGDPR_TAB_ANALYTICS">
+                <field type="kickdonation" name="kickdonation_analytics"/>
                 <field
                         name="ga_spacer"
                         type="spacer"
@@ -279,6 +284,7 @@
                 </field>
             </fieldset>
             <fieldset name="facebookpixel" label="PLG_SYSTEM_KICKGDPR_TAB_FACEBOOKPIXEL">
+                <field type="kickdonation" name="kickdonation_facebookpixel"/>
                 <field
                         name="facebookpixel_spacer"
                         type="spacer"
@@ -294,6 +300,7 @@
                 />
             </fieldset>
             <fieldset name="customcode" label="PLG_SYSTEM_KICKGDPR_TAB_CUSTOMCODE">
+                <field type="kickdonation" name="kickdonation_customcode"/>
                 <field
                         name="customcode_spacer"
                         type="spacer"

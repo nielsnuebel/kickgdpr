@@ -5,9 +5,9 @@
         <type>plugin</type>
         <folder>system</folder>
         <client>0</client>
-        <version>2.0.4</version>
+        <version>2.1.0</version>
         <downloads>
-            <downloadurl type="upgrade" format="zip">https://github.com/nielsnuebel/kickgdpr/archive/2.0.4.zip</downloadurl>
+            <downloadurl type="upgrade" format="zip">https://github.com/nielsnuebel/kickgdpr/archive/2.1.0.zip</downloadurl>
         </downloads>
         <tags>
             <tag>stable</tag>

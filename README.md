@@ -22,3 +22,7 @@ No rocket science required - just install it using the normal Joomla installer.
 
 ### Licence
 GNU GENERAL PUBLIC LICENSE V3
+
+### Feel free to support the Project
+Buy me a Beer by [paypal.me/NielsNuebel](https://www.paypal.me/NielsNuebel/)
+
