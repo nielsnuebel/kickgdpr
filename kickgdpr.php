@@ -108,17 +108,17 @@ class PlgSystemKickGdpr extends JPlugin
 			$js[] = "";
 			$js[] = "var disableStr = 'ga-disable-" . $ga_code . "';";
 			$js[] = "";
-			$js[] = "/* Function to detect opted out users */";
+			$js[] = "// Function to detect opted out users";
 			$js[] = "function __kickgaTrackerIsOptedOut() {";
 			$js[] = "	return document.cookie.indexOf(disableStr + '=true') > -1;";
 			$js[] = "};";
 			$js[] = "";
-			$js[] = "/* Disable tracking if the opt-out cookie exists. */";
+			$js[] = "// Disable tracking if the opt-out cookie exists.";
 			$js[] = "if ( __kickgaTrackerIsOptedOut() ) {";
 			$js[] = "	window[disableStr] = true;";
 			$js[] = "};";
 			$js[] = "";
-			$js[] = "/* Disable tracking if do not track active. */";
+			$js[] = "// Disable tracking if do not track active.";
 			$js[] = "if (navigator.doNotTrack == 1) {";
 			$js[] = "	window[disableStr] = true;";
 			$js[] = "};";
@@ -203,7 +203,7 @@ class PlgSystemKickGdpr extends JPlugin
 			}
 
 			$js = array();
-			$js[] = '<!-- Start Cookie Alert -->';
+			$js[] = '// Start Cookie Alert';
 			$js[] = 'window.addEventListener("load", function(){';
 			$js[] = 'window.cookieconsent.initialise({';
 			$js[] = '  "palette": {';
@@ -254,7 +254,7 @@ class PlgSystemKickGdpr extends JPlugin
 			$js[] = '  }';
 			$js[] = '})});';
 
-			$js[] = "<!-- End Cookie Alert -->";
+			$js[] = "// End Cookie Alert";
 			$js[] = "function handleCookies(status){";
 
 			if ($type != '' && $type == 'opt-out')
@@ -270,7 +270,7 @@ class PlgSystemKickGdpr extends JPlugin
 			// Add Google Analytics to Head
 			if ($ga_code && !$this->params->get('disable_ga', false))
 			{
-				$js[] = "    <!-- Google Analytics -->";
+				$js[] = "    // Google Analytics";
 				$js[] = "    if (!window[disableStr]) {";
 				$js[] = "    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){";
 				$js[] = "    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),";
@@ -300,14 +300,14 @@ class PlgSystemKickGdpr extends JPlugin
 
 				$js[] = "    __kickgaTracker('send', 'pageview');";
 				$js[] = "    }";
-				$js[] = "    <!-- End Google Analytics -->";
+				$js[] = "    // End Google Analytics";
 				$js[] = "";
 			}
 
 			// Add Facebook Pixel Code to Head
 			if ($pixel_id && !$this->params->get('disable_facebook', false))
 			{
-				$js[] = "    <!-- Facebook Pixel Code -->";
+				$js[] = "    // Facebook Pixel Code";
 				$js[] = "    !function(f,b,e,v,n,t,s)";
 				$js[] = "    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?";
 				$js[] = "    n.callMethod.apply(n,arguments):n.queue.push(arguments)};";
@@ -318,25 +318,25 @@ class PlgSystemKickGdpr extends JPlugin
 				$js[] = "    'https://connect.facebook.net/en_US/fbevents.js');";
 				$js[] = "    fbq('init', '" . $pixel_id . "');";
 				$js[] = "    fbq('track', 'PageView');";
-				$js[] = "    <!-- End Facebook Pixel Code -->";
+				$js[] = "    // End Facebook Pixel Code";
 				$js[] = "";
 			}
 
 			// Add Custom Code from Plugin Params to Head
 			if ($customcode && $customcode != '')
 			{
-				$js[] = '    <!-- Custom Code -->';
+				$js[] = '    // Custom Code';
 				$js[] = '    ' . $customcode;
-				$js[] = '    <!-- End Custom Code -->';
+				$js[] = '    // End Custom Code';
 			}
 
 			// Add Custom Code from Plugin Trigger onKickGDPR to Head
 			$trigger_content = $this->trigger_content;
 			if ($trigger_content && $trigger_content != '')
 			{
-				$js[] = '    <!-- Plugin Trigger Code -->';
+				$js[] = '    // Plugin Trigger Code';
 				$js[] = '    ' . $trigger_content;
-				$js[] = '    <!-- End Plugin Trigger Code -->';
+				$js[] = '    // End Plugin Trigger Code';
 			}
 				// $js[] = 'PUT your Code here';
 
@@ -369,9 +369,9 @@ class PlgSystemKickGdpr extends JPlugin
 			{
 				$customcssarray = array();
 				$customcssarray[] = '';
-				$customcssarray[] = '/* Custom CSS */';
+				$customcssarray[] = '// Custom CSS';
 				$customcssarray[] = $customcss;
-				$customcssarray[] = '/* End Custom CSS */';
+				$customcssarray[] = '// End Custom CSS';
 				$customcssarray[] = '';
 
 				$headcss = implode("\n", $customcssarray);
