@@ -180,7 +180,7 @@ class PlgSystemKickGdpr extends JPlugin
 
 			$lang_links = $this->params->get('lang_links', false);
 
-			if ($lang_links && count($lang_links))
+			if ($lang_links && count((array) $lang_links))
 			{
 				$lang = $this->app->getLanguage()->getTag();
 
@@ -238,7 +238,7 @@ class PlgSystemKickGdpr extends JPlugin
 			$js[] = '    "allow": "' . JText::_($allow) . '",';
 			$js[] = '    "deny": "' . JText::_($deny) . '",';
 			$js[] = '    "link": "' . JText::_($link) . '",';
-			$js[] = '    "href": "' . $href . '",';
+			$js[] = '    "href": "' . JText::_($href) . '",';
 			$js[] = '  },';
 			$js[] = '  "cookie": {';
 			$js[] = '    "expiryDays": ' . (int) $expiryDays;
