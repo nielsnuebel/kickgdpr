@@ -238,7 +238,7 @@ class PlgSystemKickGdpr extends JPlugin
 			$js[] = '    "allow": "' . JText::_($allow) . '",';
 			$js[] = '    "deny": "' . JText::_($deny) . '",';
 			$js[] = '    "link": "' . JText::_($link) . '",';
-			$js[] = '    "href": "' . JText::_($href) . '",';
+			$js[] = '    "href": "' . $href . '",';
 			$js[] = '  },';
 			$js[] = '  "cookie": {';
 			$js[] = '    "expiryDays": ' . (int) $expiryDays;
