@@ -32,14 +32,6 @@ class PlgSystemKickGdpr extends JPlugin
 	protected $app;
 
 	/**
-	 * \JDocument object
-	 *
-	 * @var    \JDocument
-	 * @since  3.2
-	 */
-	protected $doc;
-
-	/**
 	 * Affects constructor behavior. If true, language files will be loaded automatically.
 	 *
 	 * @var    boolean
@@ -66,16 +58,6 @@ class PlgSystemKickGdpr extends JPlugin
 	public function __construct(&$subject, $config)
 	{
 		parent::__construct($subject, $config);
-
-		if (property_exists($this, 'doc'))
-		{
-			$reflection = new \ReflectionClass($this);
-
-			if ($reflection->getProperty('doc')->isPrivate() === false && $this->doc === null)
-			{
-				$this->doc = \JFactory::getDocument();
-			}
-		}
 	}
 
 	/**
@@ -92,6 +74,7 @@ class PlgSystemKickGdpr extends JPlugin
 			return;
 		}
 
+		$doc = \JFactory::getDocument();
 		$ga_code = $this->params->get('ga_code', false);
 		$pixel_id = $this->params->get('pixel_id', false);
 
@@ -132,7 +115,7 @@ class PlgSystemKickGdpr extends JPlugin
 
 			$headjs = implode("\n", $js);
 
-			$this->doc->addScriptDeclaration($headjs);
+			$doc->addScriptDeclaration($headjs);
 		}
 
 		// Add Cookie Info
@@ -361,7 +344,7 @@ class PlgSystemKickGdpr extends JPlugin
 
 			$headjs = implode("\n", $js);
 
-			$this->doc->addScriptDeclaration($headjs);
+			$doc->addScriptDeclaration($headjs);
 
 
 			// Custom CSS
@@ -376,7 +359,7 @@ class PlgSystemKickGdpr extends JPlugin
 
 				$headcss = implode("\n", $customcssarray);
 
-				$this->doc->addStyleDeclaration($headcss);
+				$doc->addStyleDeclaration($headcss);
 			}
 		}
 	}
