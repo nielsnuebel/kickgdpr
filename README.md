@@ -11,6 +11,7 @@ No rocket science required - just install it using the normal Joomla installer.
 
 ### Configuration
 1. enable the plugin
+2. configure all tabs to your needs
 
 ### Special Thanks to
 - Insites - for a free solution to the EU Cookie Law
@@ -21,3 +22,7 @@ No rocket science required - just install it using the normal Joomla installer.
 
 ### Licence
 GNU GENERAL PUBLIC LICENSE V3
+
+### Feel free to support the Project
+Buy me a Beer by [paypal.me/NielsNuebel](https://www.paypal.me/NielsNuebel/)
+

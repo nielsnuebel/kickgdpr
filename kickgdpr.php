@@ -32,14 +32,6 @@ class PlgSystemKickGdpr extends JPlugin
 	protected $app;
 
 	/**
-	 * \JDocument object
-	 *
-	 * @var    \JDocument
-	 * @since  3.2
-	 */
-	protected $doc;
-
-	/**
 	 * Affects constructor behavior. If true, language files will be loaded automatically.
 	 *
 	 * @var    boolean
@@ -66,16 +58,6 @@ class PlgSystemKickGdpr extends JPlugin
 	public function __construct(&$subject, $config)
 	{
 		parent::__construct($subject, $config);
-
-		if (property_exists($this, 'doc'))
-		{
-			$reflection = new \ReflectionClass($this);
-
-			if ($reflection->getProperty('doc')->isPrivate() === false && $this->doc === null)
-			{
-				$this->doc = \JFactory::getDocument();
-			}
-		}
 	}
 
 	/**
@@ -92,6 +74,7 @@ class PlgSystemKickGdpr extends JPlugin
 			return;
 		}
 
+		$doc = \JFactory::getDocument();
 		$ga_code = $this->params->get('ga_code', false);
 		$pixel_id = $this->params->get('pixel_id', false);
 
@@ -108,17 +91,17 @@ class PlgSystemKickGdpr extends JPlugin
 			$js[] = "";
 			$js[] = "var disableStr = 'ga-disable-" . $ga_code . "';";
 			$js[] = "";
-			$js[] = "/* Function to detect opted out users */";
+			$js[] = "// Function to detect opted out users";
 			$js[] = "function __kickgaTrackerIsOptedOut() {";
 			$js[] = "	return document.cookie.indexOf(disableStr + '=true') > -1;";
 			$js[] = "};";
 			$js[] = "";
-			$js[] = "/* Disable tracking if the opt-out cookie exists. */";
+			$js[] = "// Disable tracking if the opt-out cookie exists.";
 			$js[] = "if ( __kickgaTrackerIsOptedOut() ) {";
 			$js[] = "	window[disableStr] = true;";
 			$js[] = "};";
 			$js[] = "";
-			$js[] = "/* Disable tracking if do not track active. */";
+			$js[] = "// Disable tracking if do not track active.";
 			$js[] = "if (navigator.doNotTrack == 1) {";
 			$js[] = "	window[disableStr] = true;";
 			$js[] = "};";
@@ -132,7 +115,7 @@ class PlgSystemKickGdpr extends JPlugin
 
 			$headjs = implode("\n", $js);
 
-			$this->doc->addScriptDeclaration($headjs);
+			$doc->addScriptDeclaration($headjs);
 		}
 
 		// Add Cookie Info
@@ -167,17 +150,20 @@ class PlgSystemKickGdpr extends JPlugin
 			$position = explode(' ', $this->params->get('cookie_position', 'bottom'));
 			$type = $this->params->get('compliance_type', '');
 			$theme = $this->params->get('cookie_layout', 'block');
-			$message = $this->params->get('message', 'PLG_SYSTEM_KICKGDPR_MESSAGE_DEFAULT');
+			$message = JText::_($this->params->get('message', 'PLG_SYSTEM_KICKGDPR_MESSAGE_DEFAULT'));
 			$dismiss = $this->params->get('dismiss', 'PLG_SYSTEM_KICKGDPR_DISMISS_DEFAULT');
 			$allow = $this->params->get('acceptbutton', 'PLG_SYSTEM_KICKGDPR_ACCEPTBUTTON_DEFAULT');
 			$deny = $this->params->get('denybutton', 'PLG_SYSTEM_KICKGDPR_DENYBUTTON_DEFAULT');
 			$link = $this->params->get('learnMore', 'PLG_SYSTEM_KICKGDPR_LEARNMORE_DEFAULT');
 			$expiryDays = $this->params->get('expiryDays', 365);
 			$customcode = $this->params->get('customcode', false);
+			$customcss = $this->params->get('customcss', false);
+
+			$message = $this->_prepareMessageText($message);
 
 			$lang_links = $this->params->get('lang_links', false);
 
-			if ($lang_links && count($lang_links))
+			if ($lang_links && count((array) $lang_links))
 			{
 				$lang = $this->app->getLanguage()->getTag();
 
@@ -200,7 +186,7 @@ class PlgSystemKickGdpr extends JPlugin
 			}
 
 			$js = array();
-			$js[] = '<!-- Start Cookie Alert -->';
+			$js[] = '// Start Cookie Alert';
 			$js[] = 'window.addEventListener("load", function(){';
 			$js[] = 'window.cookieconsent.initialise({';
 			$js[] = '  "palette": {';
@@ -230,7 +216,7 @@ class PlgSystemKickGdpr extends JPlugin
 			$js[] = '  "type": "' . $type . '",';
 			$js[] = '  "revokeBtn": "<div class=\"cc-revoke {{classes}}\">' . JText::_('PLG_SYSTEM_KICKGDPR_COOKIE_POLICY') . '</div>",';
 			$js[] = '  "content": {';
-			$js[] = '    "message": "' . JText::_($message) . '",';
+			$js[] = '    "message": "' . $message . '",';
 			$js[] = '    "dismiss": "' . JText::_($dismiss) . '",';
 			$js[] = '    "allow": "' . JText::_($allow) . '",';
 			$js[] = '    "deny": "' . JText::_($deny) . '",';
@@ -251,7 +237,7 @@ class PlgSystemKickGdpr extends JPlugin
 			$js[] = '  }';
 			$js[] = '})});';
 
-			$js[] = "<!-- End Cookie Alert -->";
+			$js[] = "// End Cookie Alert";
 			$js[] = "function handleCookies(status){";
 
 			if ($type != '' && $type == 'opt-out')
@@ -267,7 +253,7 @@ class PlgSystemKickGdpr extends JPlugin
 			// Add Google Analytics to Head
 			if ($ga_code && !$this->params->get('disable_ga', false))
 			{
-				$js[] = "    <!-- Google Analytics -->";
+				$js[] = "    // Google Analytics";
 				$js[] = "    if (!window[disableStr]) {";
 				$js[] = "    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){";
 				$js[] = "    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),";
@@ -297,14 +283,14 @@ class PlgSystemKickGdpr extends JPlugin
 
 				$js[] = "    __kickgaTracker('send', 'pageview');";
 				$js[] = "    }";
-				$js[] = "    <!-- End Google Analytics -->";
+				$js[] = "    // End Google Analytics";
 				$js[] = "";
 			}
 
 			// Add Facebook Pixel Code to Head
 			if ($pixel_id && !$this->params->get('disable_facebook', false))
 			{
-				$js[] = "    <!-- Facebook Pixel Code -->";
+				$js[] = "    // Facebook Pixel Code";
 				$js[] = "    !function(f,b,e,v,n,t,s)";
 				$js[] = "    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?";
 				$js[] = "    n.callMethod.apply(n,arguments):n.queue.push(arguments)};";
@@ -315,25 +301,25 @@ class PlgSystemKickGdpr extends JPlugin
 				$js[] = "    'https://connect.facebook.net/en_US/fbevents.js');";
 				$js[] = "    fbq('init', '" . $pixel_id . "');";
 				$js[] = "    fbq('track', 'PageView');";
-				$js[] = "    <!-- End Facebook Pixel Code -->";
+				$js[] = "    // End Facebook Pixel Code";
 				$js[] = "";
 			}
 
 			// Add Custom Code from Plugin Params to Head
 			if ($customcode && $customcode != '')
 			{
-				$js[] = '    <!-- Custom Code -->';
+				$js[] = '    // Custom Code';
 				$js[] = '    ' . $customcode;
-				$js[] = '    <!-- End Custom Code -->';
+				$js[] = '    // End Custom Code';
 			}
 
 			// Add Custom Code from Plugin Trigger onKickGDPR to Head
 			$trigger_content = $this->trigger_content;
 			if ($trigger_content && $trigger_content != '')
 			{
-				$js[] = '    <!-- Plugin Trigger Code -->';
+				$js[] = '    // Plugin Trigger Code';
 				$js[] = '    ' . $trigger_content;
-				$js[] = '    <!-- End Plugin Trigger Code -->';
+				$js[] = '    // End Plugin Trigger Code';
 			}
 				// $js[] = 'PUT your Code here';
 
@@ -358,7 +344,23 @@ class PlgSystemKickGdpr extends JPlugin
 
 			$headjs = implode("\n", $js);
 
-			$this->doc->addScriptDeclaration($headjs);
+			$doc->addScriptDeclaration($headjs);
+
+
+			// Custom CSS
+			if ($customcss && $customcss != '')
+			{
+				$customcssarray = array();
+				$customcssarray[] = '';
+				$customcssarray[] = '// Custom CSS';
+				$customcssarray[] = $customcss;
+				$customcssarray[] = '// End Custom CSS';
+				$customcssarray[] = '';
+
+				$headcss = implode("\n", $customcssarray);
+
+				$doc->addStyleDeclaration($headcss);
+			}
 		}
 	}
 
@@ -395,6 +397,28 @@ class PlgSystemKickGdpr extends JPlugin
 
 		$article->text = str_replace('{kickgdpr_ga_optout}', $gaOptoutOpenlink, $article->text);
 		$article->text = str_replace('{/kickgdpr_ga_optout}', $gaOptoutCloselink, $article->text);
+	}
+
+	/**
+	 * Plugin Trigger
+	 *
+	 * @param string $message
+	 */
+	protected function _prepareMessageText($message)
+	{
+		// Simple performance check to determine whether bot should process further
+		if (strpos($message, '{kickgdpr_ga_optout}') === false && strpos($message, '{/kickgdpr_ga_optout}') === false)
+		{
+			return $message;
+		}
+
+		$gaOptoutOpenlink = '<a href=\"#\" onClick=\"__kickgaTrackerOptout(); return false;\">';
+		$gaOptoutCloselink = '</a>';
+
+		$message = str_replace('{kickgdpr_ga_optout}', $gaOptoutOpenlink, $message);
+		$message = str_replace('{/kickgdpr_ga_optout}', $gaOptoutCloselink, $message);
+
+		return $message;
 	}
 
 	/**
