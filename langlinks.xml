@@ -21,5 +21,14 @@
                label="PLG_SYSTEM_KICKGDPR_LEARNMORE_LINK_URL_LABEL"
                description="PLG_SYSTEM_KICKGDPR_LEARNMORE_LINK_URL_DESC"
         />
+        <field name="link_url_target"
+               type="list"
+               default="0"
+               label="PLG_SYSTEM_KICKGDPR_LEARNMORE_LINK_URL_TARGET_LABEL"
+               description="PLG_SYSTEM_KICKGDPR_LEARNMORE_LINK_URL_TARGET_DESC">
+            <option value="">JSELECT</option>
+            <option value="0">PLG_SYSTEM_KICKGDPR_LEARNMORE_LINK_URL_TARGET_NEW</option>
+            <option value="1">PLG_SYSTEM_KICKGDPR_LEARNMORE_LINK_URL_TARGET_SAME</option>
+        </field>
     </fieldset>
 </form>
