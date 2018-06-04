@@ -158,6 +158,7 @@ class PlgSystemKickGdpr extends JPlugin
 			$expiryDays = $this->params->get('expiryDays', 365);
 			$customcode = $this->params->get('customcode', false);
 			$customcss = $this->params->get('customcss', false);
+			$target = $this->params->get('target', '_blank');
 
 			$message = $this->_prepareMessageText($message);
 
@@ -173,8 +174,14 @@ class PlgSystemKickGdpr extends JPlugin
 					{
 						$href = $lang_link->link;
 						$link_url = $lang_link->link_url;
+						$target = $lang_link->link_url_target;
 						$href = (isset($href) && '' != $href) ? JRoute::_("index.php?Itemid={$href}") : false;
 						$href = (isset($link_url) && '' != $link_url && !$href) ? $link_url : $href;
+
+						if ($target == "")
+						{
+							$target = '_blank';
+						}
 					}
 				}
 			}
@@ -225,6 +232,9 @@ class PlgSystemKickGdpr extends JPlugin
 			$js[] = '  },';
 			$js[] = '  "cookie": {';
 			$js[] = '    "expiryDays": ' . (int) $expiryDays;
+			$js[] = '  },';
+			$js[] = '  "elements": {';
+			$js[] = '    "messagelink": \'<span id="cookieconsent:desc" class="cc-message">{{message}} <a aria-label="learn more about cookies" role=button tabindex="0" class="cc-link" href="' . JText::_($href) . '" target="' . $target . '">{{link}}</a></span>\'';
 			$js[] = '  },';
 			$js[] = '  onInitialise: function (status) {';
 			$js[] = '    handleCookies(status);';
@@ -321,7 +331,7 @@ class PlgSystemKickGdpr extends JPlugin
 				$js[] = '    ' . $trigger_content;
 				$js[] = '    // End Plugin Trigger Code';
 			}
-				// $js[] = 'PUT your Code here';
+			// $js[] = 'PUT your Code here';
 
 			if ($type != '' && ($type == 'opt-out' || $type == 'opt-in'))
 			{
@@ -422,7 +432,7 @@ class PlgSystemKickGdpr extends JPlugin
 	}
 
 	/**
-	 * Plugin Trigger 
+	 * Plugin Trigger
 	 *
 	 * @param string $cookieConsentCode
 	 */
