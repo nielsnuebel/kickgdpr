@@ -1,5 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <updates>
+	 <update>
+        <version>2.3.1</version>
+        <name>System - KickGDPR</name>
+        <description>KickGDPR Plugin</description>
+        <element>kickgdpr</element>
+        <type>plugin</type>
+        <folder>system</folder>
+        <client>0</client>
+        <infourl title="KickGDPR Plugin">https://github.com/nielsnuebel/kickgdpr/</infourl>
+
+        <downloads>
+            <downloadurl type="full" format="zip">https://github.com/nielsnuebel/kickgdpr/archive/2.3.1.zip</downloadurl>
+        </downloads>
+
+        <tags>
+            <tag>stable</tag>
+        </tags>
+
+        <section>updates</section>
+        <maintainer>Niels Nübel / Stefan Wendhausen</maintainer>
+        <maintainerurl>https://www.kicktemp.com</maintainerurl>
+
+        <php_minimum>7.0.0</php_minimum>
+        <targetplatform name="joomla" version="3.[89]"/>
+    </update>
     <update>
         <version>2.3.0</version>
         <name>System - KickGDPR</name>

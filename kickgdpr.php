@@ -174,14 +174,9 @@ class PlgSystemKickGdpr extends JPlugin
 					{
 						$href = $lang_link->link;
 						$link_url = $lang_link->link_url;
-						$target = $lang_link->link_url_target;
+						$target = (isset($lang_link->link_url_target) && $lang_link->link_url_target != "")? $lang_link->link_url_target : '_blank';
 						$href = (isset($href) && '' != $href) ? JRoute::_("index.php?Itemid={$href}") : false;
 						$href = (isset($link_url) && '' != $link_url && !$href) ? $link_url : $href;
-
-						if ($target == "")
-						{
-							$target = '_blank';
-						}
 					}
 				}
 			}
