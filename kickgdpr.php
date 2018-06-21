@@ -357,9 +357,9 @@ class PlgSystemKickGdpr extends JPlugin
 			{
 				$customcssarray = array();
 				$customcssarray[] = '';
-				$customcssarray[] = '// Custom CSS';
+				$customcssarray[] = '/* Custom CSS */';
 				$customcssarray[] = $customcss;
-				$customcssarray[] = '// End Custom CSS';
+				$customcssarray[] = '/* End Custom CSS */';
 				$customcssarray[] = '';
 
 				$headcss = implode("\n", $customcssarray);
