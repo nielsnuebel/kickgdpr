@@ -20,9 +20,12 @@ No rocket science required - just install it using the normal Joomla installer.
 - Niels Nübel @niels_nuebel
 - Stefan Wendhausen @inwend
 
+### Copyright
+2018 Kicktemp UG (haftungsbeschraenkt)
+
 ### Licence
 GNU GENERAL PUBLIC LICENSE V3
 
 ### Feel free to support the Project
-Buy me a Beer by [paypal.me/NielsNuebel](https://www.paypal.me/NielsNuebel/)
+Buy us a Beer by [paypal.me/kicktemp](https://www.paypal.me/kicktemp/)
 

@@ -2,12 +2,12 @@
 <extension version="3.4" type="plugin" group="system" method="upgrade">
     <name>plg_system_kickgdpr</name>
     <author>Niels Nübel</author>
-    <creationDate>May 2018</creationDate>
-    <copyright>(c) 2009 - 2018 Kicktemp. All rights reserved.</copyright>
+    <creationDate>June 2018</creationDate>
+    <copyright>(c) 2018 Kicktemp UG (haftungsbeschraenkt). All rights reserved.</copyright>
     <license>GNU General Public License version 3 or later; see LICENSE.txt</license>
     <authorEmail>info@kicktemp.com</authorEmail>
     <authorUrl>www.kicktemp.com</authorUrl>
-    <version>2.3.2</version>
+    <version>2.4.0</version>
     <description>PLG_SYSTEM_KICKGDPR_XML_DESCRIPTION</description>
     <files>
         <folder>language</folder>
@@ -320,7 +320,7 @@
     </config>
     <updateservers>
         <server type="extension" priority="1" name="PLG_CONTENT_KICKGDPR">
-            https://raw.githubusercontent.com/nielsnuebel/kickgdpr/master/update.xml
+            https://raw.githubusercontent.com/kicktemp/kickgdpr/master/update.xml
         </server>
     </updateservers>
 </extension>
