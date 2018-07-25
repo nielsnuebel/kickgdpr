@@ -1,3 +1,7 @@
+# Attention!
+We moved with the REPO. Please do not open issues here. This REPO is closed and only historical for old installations.
+The new REPO can be found at [https://github.com/Kicktemp/kickgdpr](https://github.com/Kicktemp/kickgdpr).
+
 # Kick GDPR / DSGVO - System Plugin for Joomla
 
 ![kickgdpr](https://user-images.githubusercontent.com/3214077/39705092-ab896c10-520d-11e8-9cd1-75d4b6d2373d.png)
