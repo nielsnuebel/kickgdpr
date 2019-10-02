@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <updates>
 <update>
+<name>System - KickGDPR</name>
+<version>3.1.0</version>
+<description>KickGDPR Plugin</description>
+<downloads>
+<downloadurl type="full" format="zip">
+<![CDATA[
+https://kicktemp.shop/download?e=plg_system_kickgdpr&v=3.1.0
+]]>
+</downloadurl>
+</downloads>
+<tags>
+<tag>stable</tag>
+</tags>
+<targetplatform name="joomla" version="3.[89]"/>
+<section>updates</section>
+<maintainer>Kicktemp GmbH</maintainer>
+<maintainerurl>https://kicktemp.com</maintainerurl>
+<php_minimum>7.0.0</php_minimum>
+<element>kickgdpr</element>
+<type>plugin</type>
+<folder>system</folder>
+<client>site</client>
+</update>
+<update>
     <name>System - KickGDPR</name>
     <version>3.0.1</version>
     <description>KickGDPR Plugin</description>
